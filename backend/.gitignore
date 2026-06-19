@@ -4,6 +4,8 @@
 *.dll
 *.so
 *.dylib
+bin/
+build/
 
 # Test binary, built with `go test -c`
 *.test
@@ -24,6 +26,15 @@ go.work.sum
 # env file
 .env
 
+# Firebase 
+*firebase*.json
+*service-account*.json
+credentials.json
+
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+
+# OS specific files
+.DS_Store
+Thumbs.db
