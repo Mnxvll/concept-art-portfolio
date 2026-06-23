@@ -1,0 +1,21 @@
+:root {
+    --bg-color: #0d0d0d;
+    --text-color: #f2f2f2;
+    --accent-color: #3b82f6;
+    --gap-size: 10px;
+    /* space between images */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh;
+    padding: 1rem;
+}

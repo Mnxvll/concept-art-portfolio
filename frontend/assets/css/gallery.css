@@ -1,0 +1,38 @@
+/* Main masonry container */
+.collage {
+
+    column-width: 450px;
+    column-gap: var(--gap-size);
+    width: 100%;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+
+/* Individual artwork card */
+.collage__item {
+    position: relative;
+    border-radius: 7px;
+    overflow: hidden;
+    break-inside: avoid;
+    margin-bottom: var(--gap-size);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    background-color: #1a1a1a;
+}
+
+.collage__item:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* The image inside the card */
+.collage__image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease, opacity 0.5s ease;
+}
+
+/* Zoom effect inside the card boundaries */
+.collage__item:hover .collage__image {
+    transform: scale(1.03);
+}
