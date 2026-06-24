@@ -125,9 +125,38 @@ export const artworks = [
         slug: "beetle-girl",
         description: "Beetle Girl environment design",
         category: "Environment",
-        image_url: " https://cdnb.artstation.com/p/assets/images/images/034/203/939/large/cyprien-rousson-beetlegirlfinal.jpg?1611680346",
+        image_url: "https://cdnb.artstation.com/p/assets/images/images/034/203/939/large/cyprien-rousson-beetlegirlfinal.jpg?1611680346",
+        cloudinary_id: "none",
+        creation_date: new Date().toISOString()
+    },
+    {
+        id: "mock-14",
+        title: "Pilgrim",
+        slug: "pilgrim",
+        description: "Pilgrim concept art",
+        category: "Environment",
+        image_url: "https://cdnb.artstation.com/p/assets/images/images/100/213/295/large/amir-zand-pilg-2400.jpg?1782219912",
+        cloudinary_id: "none",
+        creation_date: new Date().toISOString()
+    },
+    {
+        id: "mock-15",
+        title: "Drod",
+        slug: "drodeka",
+        description: "Drodeka concept art",
+        category: "Environment",
+        image_url: "https://cdnb.artstation.com/p/assets/images/images/100/179/645/large/ivan-tantsiura-drode26.jpg?1782133808",
+        cloudinary_id: "none",
+        creation_date: new Date().toISOString()
+    },
+    {
+        id: "mock-16",
+        title: "Space Station",
+        slug: "space-station",
+        description: "Space station concept art",
+        category: "Environment",
+        image_url: "https://cdna.artstation.com/p/assets/images/images/099/885/666/large/ranxiang-mmexport1779125572055.jpg?1781237016",
         cloudinary_id: "none",
         creation_date: new Date().toISOString()
     }
-
 ];
