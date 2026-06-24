@@ -1,12 +1,18 @@
 import { artworks } from './services/mockData.js';
 import { Collage } from './components/Collage.js';
+import { Modal } from './components/Modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Select the main container from index.html
     const collageContainer = document.getElementById('collage-container');
 
-    // Instantiate the component passing the container and mock data
-    const collage = new Collage(collageContainer, artworks);
+    // Instantiate Modal
+    const modal = new Modal();
+
+    // Instantiate the component passing the container, mock data, and click handler
+    const collage = new Collage(collageContainer, artworks, (artwork) => {
+        modal.open(artwork);
+    });
 
     // Execute rendering
     collage.render();

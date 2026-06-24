@@ -2,10 +2,12 @@ export class Collage {
     /**
      * @param {HTMLElement} container - The DOM element where the collage will be injected
      * @param {Array} artworks - Array of artworks (ARTWORK model)
+     * @param {Function} onArtworkClick - Callback executed when an artwork is clicked
      */
-    constructor(container, artworks) {
+    constructor(container, artworks, onArtworkClick) {
         this.container = container;
         this.artworks = artworks;
+        this.onArtworkClick = onArtworkClick;
     }
 
     render() {
@@ -20,6 +22,13 @@ export class Collage {
             img.alt = art.title;
             img.className = 'collage__image';
             img.loading = 'lazy'; // Native lazy loading
+
+            // Add click listener
+            item.addEventListener('click', () => {
+                if (this.onArtworkClick) {
+                    this.onArtworkClick(art);
+                }
+            });
 
             // Create overlay container
             const overlay = document.createElement('div');

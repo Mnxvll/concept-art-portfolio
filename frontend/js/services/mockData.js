@@ -14,7 +14,7 @@ export const artworks = [
         title: "Suamox Team Project 75",
         slug: "suamox-team-project-75",
         description: "Concept art design",
-        category: "Environment",
+        category: "Character Design",
         image_url: "https://cdnb.artstation.com/p/assets/images/images/093/702/603/large/dfcponguta-suamox-team-proyect-75.webp?1763299172",
         cloudinary_id: "none",
         creation_date: new Date().toISOString()
