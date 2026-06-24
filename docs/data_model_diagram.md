@@ -10,6 +10,8 @@ erDiagram
         string description "Required"
         string category "Required"
         string image_url "Required"
+        int width "Required"
+        int height "Required"
         string cloudinary_id "Required"
         timestamp creation_date "Required"
     }
@@ -26,6 +28,7 @@ Composed of the essential text fields to display the art. A category field is in
 
 - **slug**: URL-friendly version of the title, used for clean, shareable routing and SEO.
 - **image_url**: Required to render the specific image in the frontend gallery.
+- **width & height**: Required to calculate the image's aspect-ratio on the frontend, preventing Layout Shifts (flickering) during the initial masonry load.
 - **cloudinary_id**: Crucial for triggering physical file deletion via the Cloudinary API, keeping the storage clean and avoiding orphaned files.
 - **creation_date**: Serves as metadata and will be used for sorting the gallery chronologically.
 
