@@ -81,22 +81,20 @@
 
 /* Left side: Image (80%) */
 .modal__image-pane {
+    position: relative;
     flex: 8;
     /* Takes 80% of the space */
     background-color: #050505;
-    /* Deep black to contrast with the image */
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0.5rem;
-    /* Reduced padding to make image larger */
 }
 
 .modal__image-pane img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    /* Prevents cropping */
     border-radius: 4px;
 }
 
@@ -132,6 +130,50 @@
     font-size: 1.1rem;
     line-height: 1.6;
     color: #cccccc;
+}
+
+/* Navigation Arrows */
+.modal__arrow {
+    position: absolute;
+    bottom: 1.2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: background-color 0.2s ease, opacity 0.3s ease;
+    outline: none;
+}
+
+.modal__arrow.hidden {
+    display: none;
+}
+
+.modal__arrow:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.modal__arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.modal__arrow--left {
+    left: calc(50% - 60px);
+    /* Positioned to the left of the center point */
+}
+
+.modal__arrow--right {
+    left: calc(50% + 10px);
+    /* Positioned to the right of the center point */
 }
 
 /* Responsive adjustments for mobile */

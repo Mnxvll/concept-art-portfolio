@@ -9,6 +9,7 @@ erDiagram
         string slug "Required"
         string description "Required"
         string category "Required"
+        string project "Optional"
         string image_url "Required"
         int width "Required"
         int height "Required"
@@ -27,6 +28,7 @@ erDiagram
 Composed of the essential text fields to display the art. A category field is included to allow grouping artworks by projects or types in the future.
 
 - **slug**: URL-friendly version of the title, used for clean, shareable routing and SEO.
+- **project**: Optional field to group related artworks (e.g., "Suamox Team") so they can be browsed together in a carousel modal.
 - **image_url**: Required to render the specific image in the frontend gallery.
 - **width & height**: Required to calculate the image's aspect-ratio on the frontend, preventing Layout Shifts (flickering) during the initial masonry load.
 - **cloudinary_id**: Crucial for triggering physical file deletion via the Cloudinary API, keeping the storage clean and avoiding orphaned files.

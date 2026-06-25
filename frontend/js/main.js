@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Select the main container from index.html
     const collageContainer = document.getElementById('collage-container');
 
-    // Instantiate Modal
-    const modal = new Modal();
+    // Instantiate Modal passing the full database
+    const modal = new Modal(artworks);
 
     // Instantiate the component passing the container, mock data, and click handler
     const collage = new Collage(collageContainer, artworks, (artwork) => {
