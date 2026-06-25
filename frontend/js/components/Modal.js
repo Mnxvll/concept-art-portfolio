@@ -7,6 +7,7 @@ export class Modal {
         this.currentProjectGroup = [];
         this.currentIndex = 0;
 
+        // Base modal elements
         this.modal = document.getElementById('artwork-modal');
         this.overlay = document.getElementById('modal-overlay');
         this.closeBtn = document.getElementById('modal-close');
@@ -21,10 +22,17 @@ export class Modal {
         this.category = document.getElementById('modal-category');
         this.description = document.getElementById('modal-description');
 
+        // Fullscreen elements
+        this.fullscreenView = document.getElementById('fullscreen-view');
+        this.fullscreenImage = document.getElementById('fullscreen-image');
+        this.fullscreenCloseBtn = document.getElementById('fullscreen-close');
+
         this.initEvents();
     }
 
     initEvents() {
+        // --- Base Modal Events ---
+        
         // Close modal when X is clicked
         this.closeBtn.addEventListener('click', () => this.close());
         
@@ -42,14 +50,45 @@ export class Modal {
             this.next();
         });
 
-        // Keyboard events
+        // --- Fullscreen Events ---
+        
+        // Open fullscreen when clicking the image in the modal
+        this.image.addEventListener('click', () => {
+            this.openFullscreen();
+        });
+
+        // Close fullscreen when X is clicked
+        this.fullscreenCloseBtn.addEventListener('click', () => {
+            this.closeFullscreen();
+        });
+
+        // Close fullscreen if user clicks the dark background
+        this.fullscreenView.addEventListener('click', (e) => {
+            if (e.target === this.fullscreenView) {
+                this.closeFullscreen();
+            }
+        });
+
+        // --- Keyboard Events ---
         document.addEventListener('keydown', (e) => {
-            // Only listen if modal is open
-            if (this.modal.classList.contains('hidden')) return;
-            
-            if (e.key === 'Escape') this.close();
-            if (e.key === 'ArrowLeft') this.prev();
-            if (e.key === 'ArrowRight') this.next();
+            if (e.key === 'Escape') {
+                // If fullscreen is open, close ONLY the fullscreen
+                if (!this.fullscreenView.classList.contains('hidden')) {
+                    this.closeFullscreen();
+                    return;
+                }
+                
+                // If modal is open, close the modal
+                if (!this.modal.classList.contains('hidden')) {
+                    this.close();
+                }
+            }
+
+            // Carousel navigation (only if modal is open AND fullscreen is NOT open)
+            if (!this.modal.classList.contains('hidden') && this.fullscreenView.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') this.prev();
+                if (e.key === 'ArrowRight') this.next();
+            }
         });
     }
 
@@ -125,5 +164,25 @@ export class Modal {
             this.currentProjectGroup = [];
             this.currentIndex = 0;
         }, 400); // Wait for CSS transition (0.4s) to finish
+    }
+
+    // --- Fullscreen logic ---
+    openFullscreen() {
+        // Copy the current image source from the modal to the fullscreen view
+        this.fullscreenImage.src = this.image.src;
+        this.fullscreenImage.alt = this.image.alt;
+        
+        // Show the view
+        this.fullscreenView.classList.remove('hidden');
+    }
+
+    closeFullscreen() {
+        // Hide the view
+        this.fullscreenView.classList.add('hidden');
+        
+        // Clear src after animation to avoid ghosting on next open
+        setTimeout(() => {
+            this.fullscreenImage.src = '';
+        }, 300); // Wait for CSS transition (0.3s)
     }
 }
