@@ -1,0 +1,127 @@
+/* Header container */
+.header {
+    width: 100%;
+    background-color: transparent;
+    border-bottom: none;
+
+    /* Layout */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Brand Section (Left side) */
+.header__brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header__name {
+    font-family: 'Dobra', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    /* Bold */
+    font-size: 2.5rem;
+    /* Increased from 1.5rem */
+    color: var(--text-color);
+    margin: 0 0 0.2rem 0;
+    letter-spacing: 1px;
+    margin-left: 2.5rem;
+}
+
+.header__title {
+    font-family: 'Dobra', 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    /* Light */
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    /* Light gray */
+    margin: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-left: 2.5rem;
+
+}
+
+/* Navigation Section (Right side) */
+.header__nav {
+    display: flex;
+    gap: 2rem;
+    /* Space between links */
+    margin-right: 2.1rem;
+}
+
+.header__link {
+    position: relative;
+    font-family: 'Dobra', 'Helvetica Neue', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.3rem 0;
+    outline: none;
+}
+
+.header__link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--text-color);
+    transition: width 0.3s ease;
+}
+
+.header__link:hover {
+    color: var(--text-color);
+}
+
+.header__link:hover::after {
+    width: 100%;
+}
+
+.header__link:hover {
+    color: var(--text-color);
+    /* Bright white on hover */
+}
+
+/* Responsive: smaller screens */
+@media (max-width: 768px) {
+    .header {
+        padding: 1rem 1.5rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header__name {
+        font-size: 1.8rem;
+        margin-left: 0;
+    }
+
+    .header__title {
+        font-size: 0.85rem;
+        margin-left: 0;
+    }
+
+    .header__nav {
+        flex-direction: row;
+        gap: 1rem;
+        margin-right: 0;
+        width: auto;
+        align-items: center;
+    }
+
+    .header__link {
+        font-size: 0.8rem;
+    }
+}

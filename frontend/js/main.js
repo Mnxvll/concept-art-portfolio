@@ -44,6 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Resume Modal Logic ---
+    const resumeBtn = document.getElementById('nav-resume');
+    const resumeModal = document.getElementById('resume-modal');
+    const resumeClose = document.getElementById('resume-close');
+    const resumeOverlay = document.getElementById('resume-overlay');
+
+    const openResume = () => {
+        resumeModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    };
+
+    const closeResume = () => {
+        resumeModal.classList.add('hidden');
+        document.body.style.overflow = '';
+    };
+
+    resumeBtn.addEventListener('click', openResume);
+    resumeClose.addEventListener('click', closeResume);
+    resumeOverlay.addEventListener('click', closeResume);
+
+    // Also close resume modal on escape key if it's open
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !resumeModal.classList.contains('hidden')) {
+            closeResume();
+        }
+    });
+
     // Back to top button logic
     const backToTopBtn = document.getElementById('back-to-top');
 

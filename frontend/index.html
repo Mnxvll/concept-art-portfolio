@@ -6,11 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concept Art Portfolio</title>
     <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
 </head>
 
 <body>
+    <!-- Main Header -->
+    <header class="header" id="main-header">
+        <div class="header__brand">
+            <h1 class="header__name">David Ponguta</h1>
+            <h2 class="header__title">Concept Artist</h2>
+        </div>
+        <nav class="header__nav">
+            <button id="nav-resume" class="header__link">Resume</button>
+            <a href="mailto:hello@davidponguta.com" class="header__link">Contact</a>
+        </nav>
+    </header>
+
     <!-- The container where the collage will be injected -->
     <main id="collage-container" class="collage"></main>
 
@@ -77,6 +90,25 @@
             </svg>
         </button>
         <img id="fullscreen-image" class="fullscreen__image" src="" alt="Fullscreen Artwork">
+    </div>
+
+    <!-- Resume Modal Skeleton -->
+    <div id="resume-modal" class="modal hidden">
+        <div class="modal__overlay" id="resume-overlay"></div>
+        <div class="modal__content" style="max-width: 800px; padding: 2rem;">
+            <!-- Reusing the close button styles from the art modal -->
+            <button id="resume-close" class="modal__close" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal__title" style="margin-bottom: 2rem;">Resume</h2>
+            <div id="resume-content" style="color: var(--text-color);">
+                <p>Curriculum Vitae content goes here...</p>
+            </div>
+        </div>
     </div>
 
     <!-- Load the main script as an ES6 module -->
