@@ -6,8 +6,8 @@
     flex-direction: column;
     gap: 2.5rem;
     color: #e0e0e0;
-    margin-top: 3rem; /* Empieza más abajo para evitar el botón de cerrar */
-    height: calc(100% - 3rem); /* Ocupa el resto del espacio */
+    flex: 1; /* Ocupa el espacio restante bajo el header fijo */
+    margin-top: 1.5rem; /* Separación del header */
     overflow-y: auto; 
     padding-right: 1rem; 
 }
@@ -19,6 +19,7 @@
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 1.5rem;
+    padding-right: 3rem; /* Evita que el título toque la 'X' de cerrar en móviles */
 }
 
 .resume-header__info h3 {

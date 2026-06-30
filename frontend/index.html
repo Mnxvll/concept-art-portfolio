@@ -96,7 +96,7 @@
     <!-- Resume Modal Skeleton -->
     <div id="resume-modal" class="modal hidden">
         <div class="modal__overlay" id="resume-overlay"></div>
-        <div class="modal__content" style="max-width: 800px; padding: 2rem;">
+        <div class="modal__content" style="max-width: 800px; padding: 2rem; flex-direction: column; align-items: stretch;">
             <!-- Reusing the close button styles from the art modal -->
             <button id="resume-close" class="modal__close" aria-label="Cerrar">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -105,16 +105,16 @@
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <!-- Resume Container -->
-            <div id="resume-content" class="resume-container">
-
-                <!-- Header -->
-                <div class="resume-header">
-                    <div class="resume-header__info">
-                        <h3>David Ponguta</h3>
-                        <p>Concept Artist</p>
-                    </div>
+            <!-- Header (Fijo) -->
+            <div class="resume-header">
+                <div class="resume-header__info">
+                    <h3>David Ponguta</h3>
+                    <p>Concept Artist</p>
                 </div>
+            </div>
+
+            <!-- Resume Container (Área de Scroll) -->
+            <div id="resume-content" class="resume-container">
 
                 <!-- Body (Grid) -->
                 <div class="resume-body">
