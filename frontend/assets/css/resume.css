@@ -1,0 +1,185 @@
+/* Resume Modal Typography & Layout */
+
+/* Container for the resume */
+.resume-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    color: #e0e0e0;
+    margin-top: 3rem; /* Empieza más abajo para evitar el botón de cerrar */
+    height: calc(100% - 3rem); /* Ocupa el resto del espacio */
+    overflow-y: auto; 
+    padding-right: 1rem; 
+}
+
+/* Header section (Name, Title, Download) */
+.resume-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1.5rem;
+}
+
+.resume-header__info h3 {
+    font-family: 'Dobra', 'Helvetica Neue', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-color);
+    letter-spacing: 1px;
+}
+
+.resume-header__info p {
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    margin: 0.2rem 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Download Button */
+.resume-download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.resume-download-btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border-color: var(--text-color);
+}
+
+.resume-download-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+/* Two-column grid layout */
+.resume-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+}
+
+/* Section styling */
+.resume-section {
+    margin-bottom: 2.5rem;
+}
+
+.resume-section:last-child {
+    margin-bottom: 0;
+}
+
+.resume-section__title {
+    font-family: 'Dobra', 'Helvetica Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.5rem;
+}
+
+/* Experience / Education items */
+.resume-item {
+    margin-bottom: 1.5rem;
+}
+
+.resume-item:last-child {
+    margin-bottom: 0;
+}
+
+.resume-item__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.3rem;
+}
+
+.resume-item__role {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.resume-item__date {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.resume-item__company {
+    font-size: 1rem;
+    color: var(--accent-color);
+    margin: 0 0 0.5rem 0;
+    font-style: italic;
+}
+
+.resume-item__desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #b0b0b0;
+    margin: 0;
+}
+
+/* Skills lists */
+.resume-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.resume-list li {
+    font-size: 1.05rem;
+    color: #cccccc;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+}
+
+.resume-list li::before {
+    content: "•";
+    color: var(--accent-color);
+    margin-right: 0.8rem;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .resume-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .resume-body {
+        grid-template-columns: 1fr;
+        /* Stack columns on mobile */
+        gap: 2rem;
+    }
+
+    .resume-item__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resume-item__date {
+        margin-top: 0.2rem;
+    }
+}

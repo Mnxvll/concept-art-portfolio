@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
+    <link rel="stylesheet" href="./assets/css/resume.css">
 </head>
 
 <body>
@@ -104,9 +105,113 @@
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <h2 class="modal__title" style="margin-bottom: 2rem;">Resume</h2>
-            <div id="resume-content" style="color: var(--text-color);">
-                <p>Curriculum Vitae content goes here...</p>
+            <!-- Resume Container -->
+            <div id="resume-content" class="resume-container">
+
+                <!-- Header -->
+                <div class="resume-header">
+                    <div class="resume-header__info">
+                        <h3>David Ponguta</h3>
+                        <p>Concept Artist</p>
+                    </div>
+                </div>
+
+                <!-- Body (Grid) -->
+                <div class="resume-body">
+
+                    <!-- Main Column (Left) -->
+                    <div class="resume-main">
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Summary</h4>
+                            <p class="resume-item__desc">Passionate Concept Artist specialized in environment design and
+                                character development for the entertainment industry. Focused on building immersive
+                                worlds with strong visual narratives and compelling aesthetics.</p>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Experience</h4>
+
+                            <div class="resume-item">
+                                <div class="resume-item__header">
+                                    <h5 class="resume-item__role">Freelance Concept Artist</h5>
+                                    <span class="resume-item__date">2023 - Present</span>
+                                </div>
+                                <h6 class="resume-item__company">Various Studios & Clients</h6>
+                                <p class="resume-item__desc">Created high-quality character concepts, environment
+                                    illustrations, and keyframe art for indie game projects and independent films.
+                                    Collaborated closely with Art Directors to establish visual pillars.</p>
+                            </div>
+
+                            <div class="resume-item">
+                                <div class="resume-item__header">
+                                    <h5 class="resume-item__role">Junior Concept Artist</h5>
+                                    <span class="resume-item__date">2021 - 2023</span>
+                                </div>
+                                <h6 class="resume-item__company">Suamox Team</h6>
+                                <p class="resume-item__desc">Worked on "Project 75", designing props, initial character
+                                    sketches, and environment moodboards. Assisted senior artists with rendering and
+                                    variations.</p>
+                            </div>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Education</h4>
+                            <div class="resume-item">
+                                <div class="resume-item__header">
+                                    <h5 class="resume-item__role">Digital Arts Degree</h5>
+                                    <span class="resume-item__date">2017 - 2021</span>
+                                </div>
+                                <h6 class="resume-item__company">University / Art School</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Column (Right) -->
+                    <div class="resume-sidebar">
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Software</h4>
+                            <ul class="resume-list">
+                                <li>Adobe Photoshop</li>
+                                <li>Blender 3D</li>
+                                <li>ZBrush</li>
+                                <li>Unreal Engine 5</li>
+                                <li>Procreate</li>
+                            </ul>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Core Skills</h4>
+                            <ul class="resume-list">
+                                <li>Character Design</li>
+                                <li>Environment Concept Art</li>
+                                <li>Matte Painting</li>
+                                <li>3D Blockouts & Modeling</li>
+                                <li>Visual Storytelling</li>
+                            </ul>
+                        </div>
+
+                        <div class="resume-section">
+                            <h4 class="resume-section__title">Languages</h4>
+                            <ul class="resume-list">
+                                <li>Spanish (Native)</li>
+                                <li>English (Professional)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer / Actions -->
+                <div class="resume-footer" style="display: flex; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
+                    <a href="#" class="resume-download-btn" aria-label="Download Resume PDF">
+                        <!-- Simple Download Icon -->
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                        </svg>
+                        Download PDF
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
