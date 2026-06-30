@@ -6,10 +6,10 @@
     flex-direction: column;
     gap: 2.5rem;
     color: #e0e0e0;
-    flex: 1; /* Ocupa el espacio restante bajo el header fijo */
-    margin-top: 1.5rem; /* Separación del header */
-    overflow-y: auto; 
-    padding-right: 1rem; 
+    flex: 1;
+    margin-top: 1.5rem;
+    overflow-y: auto;
+    padding-right: 1rem;
 }
 
 /* Header section (Name, Title, Download) */
@@ -19,7 +19,7 @@
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 1.5rem;
-    padding-right: 3rem; /* Evita que el título toque la 'X' de cerrar en móviles */
+    padding-right: 3rem;
 }
 
 .resume-header__info h3 {

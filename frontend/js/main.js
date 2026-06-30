@@ -80,6 +80,20 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             backToTopBtn.classList.remove('visible');
         }
+
+        // Prevent button from overlapping the footer
+        const footer = document.querySelector('.footer');
+        if (footer && backToTopBtn.classList.contains('visible')) {
+            const footerRect = footer.getBoundingClientRect();
+            // If the top of the footer is inside the viewport
+            if (footerRect.top < window.innerHeight) {
+                const overlap = window.innerHeight - footerRect.top;
+                // Move the button up by the exact amount the footer is showing
+                backToTopBtn.style.bottom = `calc(2rem + ${overlap}px)`;
+            } else {
+                backToTopBtn.style.bottom = '2rem';
+            }
+        }
     });
 
     backToTopBtn.addEventListener('click', () => {

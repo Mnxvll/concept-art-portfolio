@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/resume.css">
+    <link rel="stylesheet" href="./assets/css/footer.css">
 </head>
 
 <body>
@@ -27,6 +28,19 @@
 
     <!-- The container where the collage will be injected -->
     <main id="collage-container" class="collage"></main>
+
+    <!-- Main Footer -->
+    <footer class="footer">
+        <div class="footer__left">
+            <p>© 2026 David Ponguta. All rights reserved.</p>
+            <p class="footer__dev">Developed by <a href="https://github.com/Mnxvll" target="_blank"
+                    class="footer__dev-link">Mnxvll</a></p>
+        </div>
+        <div class="footer__right">
+            <p class="footer__cta">Open for new opportunities</p>
+            <a href="mailto:hello@davidponguta.com" class="footer__link">Drop me a line at hello@davidponguta.com</a>
+        </div>
+    </footer>
 
     <!-- Back to top button -->
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
@@ -96,7 +110,8 @@
     <!-- Resume Modal Skeleton -->
     <div id="resume-modal" class="modal hidden">
         <div class="modal__overlay" id="resume-overlay"></div>
-        <div class="modal__content" style="max-width: 800px; padding: 2rem; flex-direction: column; align-items: stretch;">
+        <div class="modal__content"
+            style="max-width: 800px; padding: 2rem; flex-direction: column; align-items: stretch;">
             <!-- Reusing the close button styles from the art modal -->
             <button id="resume-close" class="modal__close" aria-label="Cerrar">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -113,7 +128,7 @@
                 </div>
             </div>
 
-            <!-- Resume Container (Área de Scroll) -->
+            <!-- Resume Container (Scroll Area) -->
             <div id="resume-content" class="resume-container">
 
                 <!-- Body (Grid) -->
@@ -202,7 +217,8 @@
                 </div>
 
                 <!-- Footer / Actions -->
-                <div class="resume-footer" style="display: flex; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
+                <div class="resume-footer"
+                    style="display: flex; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
                     <a href="#" class="resume-download-btn" aria-label="Download Resume PDF">
                         <!-- Simple Download Icon -->
                         <svg viewBox="0 0 24 24">
