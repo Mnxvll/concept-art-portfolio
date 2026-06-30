@@ -13,6 +13,28 @@ export class Collage {
     render() {
         this.container.innerHTML = ''; // Clear the container
 
+        // Setup observer for mobile "hover" effect (active state on scroll)
+        const hasHover = window.matchMedia('(hover: hover)').matches;
+        let observer = null;
+
+        if (!hasHover) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '-49% 0px -49% 0px', // Trigger when in the middle 20% of viewport
+                threshold: 0
+            };
+
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-active');
+                    } else {
+                        entry.target.classList.remove('is-active');
+                    }
+                });
+            }, observerOptions);
+        }
+
         this.artworks.forEach((art) => {
             const item = document.createElement('div');
             item.className = 'collage__item';
@@ -44,6 +66,10 @@ export class Collage {
             item.appendChild(img);
             item.appendChild(overlay);
             this.container.appendChild(item);
+
+            if (observer) {
+                observer.observe(item);
+            }
         });
     }
 }

@@ -20,22 +20,12 @@
     background-color: #1a1a1a;
 }
 
-.collage__item:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-}
-
 /* The image inside the card */
 .collage__image {
     width: 100%;
     height: auto;
     display: block;
     transition: transform 0.6s ease, opacity 0.25s ease, filter 0.25s ease;
-}
-
-/* Zoom and blur effect inside the card boundaries */
-.collage__item:hover .collage__image {
-    transform: scale(1.03);
-    filter: brightness(0.7);
 }
 
 /* Overlay for the title */
@@ -55,11 +45,6 @@
     pointer-events: none;
 }
 
-/* Show overlay on hover */
-.collage__item:hover .collage__overlay {
-    opacity: 1;
-}
-
 /* The actual title text */
 .collage__title {
     color: var(--text-color);
@@ -71,7 +56,44 @@
     transition: transform 0.25s ease;
 }
 
-/* Slide up animation for the title on hover */
-.collage__item:hover .collage__title {
-    transform: translateY(0);
+@media (hover: hover) {
+    .collage__item:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Zoom and blur effect inside the card boundaries */
+    .collage__item:hover .collage__image {
+        transform: scale(1.03);
+        filter: brightness(0.7);
+    }
+    
+    /* Show overlay on hover */
+    .collage__item:hover .collage__overlay {
+        opacity: 1;
+    }
+    
+    /* Slide up animation for the title on hover */
+    .collage__item:hover .collage__title {
+        transform: translateY(0);
+    }
+}
+
+/* Active state for mobile devices (triggered by JS IntersectionObserver) */
+@media (hover: none) {
+    .collage__item.is-active {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .collage__item.is-active .collage__image {
+        transform: scale(1.03);
+        filter: brightness(0.7);
+    }
+    
+    .collage__item.is-active .collage__overlay {
+        opacity: 1;
+    }
+    
+    .collage__item.is-active .collage__title {
+        transform: translateY(0);
+    }
 }
