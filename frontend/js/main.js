@@ -44,7 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const resumeClose = document.getElementById('resume-close');
     const resumeOverlay = document.getElementById('resume-overlay');
 
+    const resumeContent = document.getElementById('resume-content');
+
     const openResume = () => {
+        if (resumeContent) {
+            resumeContent.scrollTop = 0;
+        }
         resumeModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
     };
