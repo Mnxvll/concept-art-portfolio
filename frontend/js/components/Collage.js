@@ -11,7 +11,7 @@ export class Collage {
     }
 
     render() {
-        this.container.innerHTML = ''; // Clear the container
+        this.container.innerHTML = '';
 
         // Setup observer for entrance animations
         let appearDelay = 0;
@@ -22,7 +22,7 @@ export class Collage {
                     setTimeout(() => {
                         entry.target.classList.add('is-visible');
                     }, appearDelay);
-                    appearDelay += 100; // Stagger effect
+                    appearDelay += 100;
 
                     clearTimeout(appearTimeout);
                     appearTimeout = setTimeout(() => {
@@ -41,7 +41,7 @@ export class Collage {
         if (!hasHover) {
             const observerOptions = {
                 root: null,
-                rootMargin: '-49.5% 0px -49.5% 0px', // Trigger when in the middle 20% of viewport
+                rootMargin: '-49.5% 0px -49.5% 0px',
                 threshold: 0
             };
 
@@ -61,7 +61,6 @@ export class Collage {
                 if (items.length === 0) return;
                 
                 const lastItem = items[items.length - 1];
-                // Increased threshold to 150px for more reliable detection on mobile browsers
                 const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150;
                 
                 if (isAtBottom) {
@@ -98,31 +97,26 @@ export class Collage {
             img.src = art.image_url;
             img.alt = art.title;
             img.className = 'collage__image';
-            img.loading = 'lazy'; // Native lazy loading
+            img.loading = 'lazy';
 
-            // Add click listener
             item.addEventListener('click', () => {
                 if (this.onArtworkClick) {
                     this.onArtworkClick(art);
                 }
             });
 
-            // Create overlay container
             const overlay = document.createElement('div');
             overlay.className = 'collage__overlay';
 
-            // Create title
             const title = document.createElement('h3');
             title.className = 'collage__title';
             title.textContent = art.title;
 
-            // Assemble the puzzle
             overlay.appendChild(title);
             item.appendChild(img);
             item.appendChild(overlay);
             this.container.appendChild(item);
 
-            // Observe the item for entrance animation
             appearObserver.observe(item);
 
             if (observer) {

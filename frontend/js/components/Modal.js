@@ -38,13 +38,9 @@ export class Modal {
     initEvents() {
         // --- Base Modal Events ---
 
-        // Close modal when X is clicked
         this.closeBtn.addEventListener('click', () => this.close());
-
-        // Close modal when clicking outside the content (on the overlay)
         this.overlay.addEventListener('click', () => this.close());
 
-        // Share button click
         this.shareBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 this.shareBtn.classList.add('success');
@@ -60,7 +56,6 @@ export class Modal {
             });
         });
 
-        // Arrow clicks
         this.prevBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             this.prev();
@@ -123,7 +118,6 @@ export class Modal {
     updateUI(pushHistory = true) {
         const currentArt = this.currentProjectGroup[this.currentIndex];
 
-        // Draw the artwork on the modal 
         this.image.src = currentArt.image_url;
         this.image.alt = currentArt.title;
         this.title.textContent = currentArt.title;

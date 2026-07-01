@@ -1,4 +1,3 @@
-/* Full screen modal container */
 .modal {
     position: fixed;
     top: 0;
@@ -18,7 +17,6 @@
     pointer-events: none;
 }
 
-/* Dim the background */
 .modal__overlay {
     position: absolute;
     top: 0;
@@ -26,18 +24,15 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85);
-    /* Slightly transparent dark background */
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
 
-/* The actual box containing image and text */
 .modal__content {
     position: relative;
     width: 95vw;
     height: 95vh;
     background-color: var(--bg-color);
-    /* Global dark background */
     border-radius: 12px;
     overflow: hidden;
     display: flex;
@@ -113,7 +108,6 @@
 
 .modal__share.success {
     width: 105px;
-    /* Use a fixed width instead of auto for smooth CSS transitions */
     background-color: #28a745;
 }
 
@@ -124,7 +118,6 @@
     white-space: nowrap;
     opacity: 1;
     transition: opacity 0.3s ease 0.1s;
-    /* Delay fade in slightly so button expands first */
 }
 
 .modal__share-text.hidden {
@@ -132,11 +125,9 @@
     transition: opacity 0.1s ease;
 }
 
-/* Left side: Image (80%) */
 .modal__image-pane {
     position: relative;
     flex: 8;
-    /* Takes 80% of the space */
     background-color: #050505;
     display: flex;
     align-items: center;
@@ -152,10 +143,8 @@
     cursor: zoom-in;
 }
 
-/* Right side: Text (20%) */
 .modal__text-pane {
     flex: 2;
-    /* Takes 20% of the space */
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
@@ -224,12 +213,10 @@
 
 .modal__arrow--left {
     left: calc(50% - 60px);
-    /* Positioned to the left of the center point */
 }
 
 .modal__arrow--right {
     left: calc(50% + 10px);
-    /* Positioned to the right of the center point */
 }
 
 /* Responsive adjustments for mobile */
@@ -237,33 +224,26 @@
     .modal__content {
         flex-direction: column;
         height: 82dvh;
-        /* Use dynamic viewport height (dvh) to account for mobile browser UI */
         margin-bottom: 5dvh;
-        /* Pushes the entire modal upwards to avoid the phone's bottom navigation bar */
     }
 
     .modal__image-pane {
         flex: 5;
         min-height: 0;
-        /* Fixes image overflowing and squishing the text pane */
         padding: 2.25rem 1rem 3.5rem 1rem;
-        /* Image moved slightly up, bottom space increased */
     }
 
     .modal__text-pane {
         flex: 5;
         min-height: 0;
-        /* Allows pane to share space properly */
         padding: 0.75rem 1.5rem 1.5rem 1.5rem;
         justify-content: flex-start;
-        /* Eliminates unnecessary space above the title */
     }
 
     .modal__title {
         font-size: 2rem;
     }
 
-    /* Fix button visibility on unpredictable image backgrounds (white or black) */
     .modal__share {
         background-color: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(5px);
@@ -281,23 +261,19 @@
         height: 14px;
     }
 
-    /* Fix stuck hover state on touch screens */
     .modal__share:hover {
         background-color: rgba(255, 255, 255, 0.1);
     }
-    
-    /* Make success animation narrower on mobile so it doesn't touch the image */
+
     .modal__share.success {
         width: 86px;
         background-color: #28a745;
     }
 
-    /* Hide close buttons on mobile, relying on gestures/back button */
     .modal__close {
         display: none;
     }
 
-    /* Make navigation arrows smaller and move them up */
     .modal__arrow {
         width: 40px;
         height: 40px;
@@ -317,7 +293,6 @@
         left: calc(50% + 10px);
     }
 
-    /* Darken immersive view background on mobile */
     .fullscreen {
         background-color: rgba(0, 0, 0, 0.96);
     }
@@ -332,9 +307,7 @@
     height: 100vh;
     z-index: 2000;
     background-color: rgba(0, 0, 0, 0.85);
-    /* Darkness level (0 to 1) */
     backdrop-filter: blur(3px);
-    /* Blur intensity */
     -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;

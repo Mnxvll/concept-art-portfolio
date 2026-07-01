@@ -3,18 +3,13 @@ import { Collage } from './components/Collage.js';
 import { Modal } from './components/Modal.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Select the main container from index.html
     const collageContainer = document.getElementById('collage-container');
-
-    // Instantiate Modal passing the full database
     const modal = new Modal(artworks);
-
-    // Instantiate the component passing the container, mock data, and click handler
+    
     const collage = new Collage(collageContainer, artworks, (artwork) => {
         modal.open(artwork);
     });
 
-    // Execute rendering
     collage.render();
 
     // Check URL for deep linking
@@ -39,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.open(targetArt, false);
             }
         } else {
-            // No slug means we went back to the root gallery
             modal.close(false);
         }
     });
@@ -64,14 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     resumeClose.addEventListener('click', closeResume);
     resumeOverlay.addEventListener('click', closeResume);
 
-    // Also close resume modal on escape key if it's open
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !resumeModal.classList.contains('hidden')) {
             closeResume();
         }
     });
 
-    // Back to top button logic
+    // --- Back to top button logic ---
     const backToTopBtn = document.getElementById('back-to-top');
 
     window.addEventListener('scroll', () => {
@@ -85,10 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const footer = document.querySelector('.footer');
         if (footer && backToTopBtn.classList.contains('visible')) {
             const footerRect = footer.getBoundingClientRect();
-            // If the top of the footer is inside the viewport
             if (footerRect.top < window.innerHeight) {
                 const overlap = window.innerHeight - footerRect.top;
-                // Use transform instead of bottom for smoother animation and override CSS
                 backToTopBtn.style.transform = `translateY(-${overlap}px)`;
             } else {
                 backToTopBtn.style.transform = '';
