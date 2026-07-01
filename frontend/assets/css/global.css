@@ -84,6 +84,19 @@ body {
     height: 28px;
 }
 
+/* Mobile responsive back-to-top */
+@media (max-width: 768px) {
+    .back-to-top {
+        width: 50px;
+        height: 50px;
+        right: 1.5rem;
+    }
+    .back-to-top svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
 /* Custom Minimalist Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
