@@ -78,19 +78,37 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             backToTopBtn.classList.remove('visible');
         }
+    }, { passive: true });
 
-        // Prevent button from overlapping the footer
-        const footer = document.querySelector('.footer');
-        if (footer && backToTopBtn.classList.contains('visible')) {
-            const footerRect = footer.getBoundingClientRect();
-            if (footerRect.top < window.innerHeight) {
-                const overlap = window.innerHeight - footerRect.top;
-                backToTopBtn.style.transform = `translateY(-${overlap}px)`;
-            } else {
-                backToTopBtn.style.transform = '';
-            }
-        }
-    });
+    // Use IntersectionObserver to seamlessly pin the button above the footer
+    const footer = document.querySelector('.footer');
+    if (footer && backToTopBtn) {
+        document.body.style.position = 'relative'; // Ensure body is the relative container
+        
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const footerHeight = entry.boundingClientRect.height;
+                    // Switch to absolute positioning tied to the bottom of the body
+                    backToTopBtn.style.position = 'absolute';
+                    backToTopBtn.style.bottom = `calc(${footerHeight}px + 2rem)`;
+                    backToTopBtn.style.transform = 'none'; // reset any residual transform
+                } else {
+                    // Reset to normal fixed positioning
+                    backToTopBtn.style.position = '';
+                    backToTopBtn.style.bottom = '';
+                    backToTopBtn.style.transform = '';
+                }
+            });
+        }, { 
+            root: null,
+            threshold: 0,
+            // Small positive margin so it triggers just before hitting the footer
+            rootMargin: '50px 0px 0px 0px' 
+        });
+
+        footerObserver.observe(footer);
+    }
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({
