@@ -254,7 +254,8 @@
         border: none;
         width: 34px;
         height: 34px;
-        right: 0.35rem;
+        left: 0.35rem;
+        right: auto;
         top: 0.35rem;
         padding: 0 9px;
     }
@@ -274,7 +275,20 @@
     }
 
     .modal__close {
-        display: none;
+        display: flex;
+        width: 34px;
+        height: 34px;
+        top: 0.35rem;
+        right: 0.35rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        padding: 0;
+    }
+
+    .modal__close svg {
+        width: 14px;
+        height: 14px;
     }
 
     .modal__arrow {

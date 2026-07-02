@@ -29,20 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Handle browser Back/Forward buttons (popstate)
-    window.addEventListener('popstate', () => {
-        const params = new URLSearchParams(window.location.search);
-        const slug = params.get('obra');
-
-        if (slug) {
-            const targetArt = artworks.find(a => a.slug === slug);
-            if (targetArt) {
-                modal.open(targetArt, false);
-            }
-        } else {
-            modal.close(false);
-        }
-    });
+    // (Popstate listener moved below Resume logic)
 
     // --- Resume Modal Logic ---
     const resumeBtn = document.getElementById('nav-resume');
@@ -52,26 +39,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const resumeContent = document.getElementById('resume-content');
 
-    const openResume = () => {
+    const openResume = (pushHistory = true) => {
         if (resumeContent) {
             resumeContent.scrollTop = 0;
         }
         resumeModal.classList.remove('hidden');
         document.body.style.overflow = 'hidden'; // Prevent scrolling
+        if (pushHistory) {
+            window.history.pushState({ resume: true }, '', window.location.pathname + '#resume');
+        }
     };
 
-    const closeResume = () => {
+    const closeResume = (pushHistory = true) => {
         resumeModal.classList.add('hidden');
         document.body.style.overflow = '';
+        if (pushHistory) {
+            window.history.pushState(null, '', window.location.pathname);
+        }
     };
 
-    resumeBtn.addEventListener('click', openResume);
-    resumeClose.addEventListener('click', closeResume);
-    resumeOverlay.addEventListener('click', closeResume);
+    resumeBtn.addEventListener('click', () => openResume(true));
+    resumeClose.addEventListener('click', () => closeResume(true));
+    resumeOverlay.addEventListener('click', () => closeResume(true));
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !resumeModal.classList.contains('hidden')) {
-            closeResume();
+            closeResume(true);
+        }
+    });
+
+    if (window.location.hash === '#resume') {
+        openResume(false);
+    }
+
+    // Handle browser Back/Forward buttons (popstate)
+    window.addEventListener('popstate', () => {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('obra');
+
+        if (window.location.hash === '#resume') {
+            openResume(false);
+        } else {
+            if (!resumeModal.classList.contains('hidden')) {
+                closeResume(false);
+            }
+            if (slug) {
+                const targetArt = artworks.find(a => a.slug === slug);
+                if (targetArt) {
+                    modal.open(targetArt, false);
+                }
+            } else {
+                modal.close(false);
+            }
         }
     });
 
