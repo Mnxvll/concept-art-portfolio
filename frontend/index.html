@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/resume.css">
+    <link rel="stylesheet" href="./assets/css/admin.css">
     <link rel="stylesheet" href="./assets/css/footer.css">
 </head>
 
@@ -222,6 +223,27 @@
                 </div>
 
             </div>
+        </div>
+    </div>
+
+    <!-- Login Modal (Admin) -->
+    <div id="login-modal" class="modal hidden">
+        <div class="modal__overlay" id="login-overlay"></div>
+        <div class="login-content">
+            <button id="login-close" class="modal__close" aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h3 class="login-title">Restricted Access</h3>
+            <p class="login-subtitle">David Ponguta</p>
+            <form id="login-form" class="login-form">
+                <input type="email" id="admin-email" class="login-input" placeholder="Admin Email" required autocomplete="email" maxlength="100">
+                <input type="password" id="admin-pass" class="login-input" placeholder="Enter passkey..." required autocomplete="current-password" maxlength="64">
+                <button type="submit" class="login-btn">Authenticate</button>
+            </form>
         </div>
     </div>
 

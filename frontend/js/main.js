@@ -1,6 +1,7 @@
 import { artworks } from './services/mockData.js';
 import { Collage } from './components/Collage.js';
 import { Modal } from './components/Modal.js';
+import { Admin } from './components/Admin.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     if ('scrollRestoration' in history) {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const collageContainer = document.getElementById('collage-container');
     const modal = new Modal(artworks);
+    const admin = new Admin();
     
     const collage = new Collage(collageContainer, artworks, (artwork) => {
         modal.open(artwork);

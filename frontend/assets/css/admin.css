@@ -1,0 +1,101 @@
+/* Login Modal Styles (Admin) */
+.login-content {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    z-index: 1001; /* Ensure above overlay */
+}
+
+.login-title {
+    font-family: 'Dobra', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.login-subtitle {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 2rem 0;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.login-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+.login-input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.login-btn {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+/* Global Admin Mode Styles (In-place visual changes) */
+body.admin-mode .header__name {
+    color: #ff6b81; /* A subtle red to indicate admin state */
+}
+
+body.admin-mode .header__title::after {
+    content: ' (ADMIN)';
+    color: #ff6b81;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+/* Override close button position for login modal */
+#login-close {
+    top: 1rem;
+    right: 1rem;
+}

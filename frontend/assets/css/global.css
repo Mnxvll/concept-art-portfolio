@@ -34,6 +34,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+::selection {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
