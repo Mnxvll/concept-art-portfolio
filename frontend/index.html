@@ -22,8 +22,14 @@
             <h2 class="header__title">Concept Artist</h2>
         </div>
         <nav class="header__nav">
+            <button id="add-artwork-btn" class="add-artwork-btn header__link" title="Add New Artwork">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Add Artwork</span>
+            </button>
             <button id="nav-resume" class="header__link">Resume</button>
-            <a href="mailto:hello@davidponguta.com" class="header__link">Contact</a>
+            <a href="mailto:ponguart@gmail.com" class="header__link">Contact</a>
         </nav>
     </header>
 
@@ -39,7 +45,7 @@
         </div>
         <div class="footer__right">
             <p class="footer__cta">Open for new opportunities</p>
-            <a href="mailto:hello@davidponguta.com" class="footer__link">Drop me a line at hello@davidponguta.com</a>
+            <a href="mailto:ponguart@gmail.com" class="footer__link">Drop me a line at ponguart@gmail.com</a>
         </div>
     </footer>
 
@@ -240,14 +246,37 @@
             <h3 class="login-title">Restricted Access</h3>
             <p class="login-subtitle">David Ponguta</p>
             <form id="login-form" class="login-form">
-                <input type="email" id="admin-email" class="login-input" placeholder="Admin Email" required autocomplete="email" maxlength="100">
-                <input type="password" id="admin-pass" class="login-input" placeholder="Enter passkey..." required autocomplete="current-password" maxlength="64">
+                <input type="email" id="admin-email" class="login-input" placeholder="Admin Email" required
+                    autocomplete="email" maxlength="100">
+                <input type="password" id="admin-pass" class="login-input" placeholder="Enter passkey..." required
+                    autocomplete="current-password" maxlength="64">
                 <button type="submit" class="login-btn">Authenticate</button>
             </form>
         </div>
     </div>
 
-    <script type="module" src="./js/main.js"></script>
+    <!-- Confirm Delete Modal (Admin) -->
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal__overlay" id="confirm-overlay"></div>
+        <div class="modal__content login-content" style="padding-bottom: 2.5rem;">
+            <h3 class="login-title" style="width: 100%; text-align: left;">Delete Artwork</h3>
+            <p class="login-subtitle"
+                style="margin-bottom: 2rem; white-space: normal; line-height: 1.6; font-size: 1rem; text-align: left; width: 100%;">
+                Are you sure you want to delete "<span id="confirm-art-title"
+                    style="color: white; font-weight: bold;"></span>"?<br><br>This action cannot be undone.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem; width: 100%;">
+                <button id="confirm-cancel" class="login-btn"
+                    style="background: rgba(255,255,255,0.1); width: 120px;">Cancel</button>
+                <button id="confirm-delete" class="login-btn"
+                    style="background: rgba(255, 71, 87, 0.9); border-color: rgba(255, 71, 87, 0.9); width: 120px;">Delete</button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>

@@ -151,4 +151,46 @@ document.addEventListener('DOMContentLoaded', () => {
             behavior: 'smooth'
         });
     }, { passive: false });
+
+    // --- Admin Delete Logic (Mock) ---
+    const confirmModal = document.getElementById('confirm-modal');
+    const confirmOverlay = document.getElementById('confirm-overlay');
+    const confirmCancel = document.getElementById('confirm-cancel');
+    const confirmDelete = document.getElementById('confirm-delete');
+    const confirmArtTitle = document.getElementById('confirm-art-title');
+    let artworkToDelete = null;
+
+    document.addEventListener('requestDeleteArtwork', (e) => {
+        artworkToDelete = e.detail;
+        confirmArtTitle.textContent = artworkToDelete.title;
+        confirmModal.classList.remove('hidden');
+    });
+
+    const closeConfirmModal = () => {
+        confirmModal.classList.add('hidden');
+        artworkToDelete = null;
+    };
+
+    if(confirmOverlay) confirmOverlay.addEventListener('click', closeConfirmModal);
+    if(confirmCancel) confirmCancel.addEventListener('click', closeConfirmModal);
+
+    if(confirmDelete) confirmDelete.addEventListener('click', () => {
+        if (artworkToDelete) {
+            // Mock deletion: remove from artworks array and re-render
+            const index = artworks.findIndex(a => a.id === artworkToDelete.id);
+            if (index > -1) {
+                artworks.splice(index, 1);
+                collage.render(); // Re-render the grid without the deleted item
+            }
+            closeConfirmModal();
+        }
+    });
+
+    // --- Add Artwork button ---
+    const addArtworkBtn = document.getElementById('add-artwork-btn');
+    if (addArtworkBtn) {
+        addArtworkBtn.addEventListener('click', () => {
+            console.log("Open Add Artwork Modal (To be implemented in Phase 3)");
+        });
+    }
 });

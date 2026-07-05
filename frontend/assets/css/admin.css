@@ -1,4 +1,3 @@
-/* Login Modal Styles (Admin) */
 .login-content {
     background: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(20px);
@@ -11,7 +10,12 @@
     text-align: center;
     position: relative;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    z-index: 1001; /* Ensure above overlay */
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto !important;
 }
 
 .login-title {
@@ -82,9 +86,8 @@
     transform: translateY(0);
 }
 
-/* Global Admin Mode Styles (In-place visual changes) */
 body.admin-mode .header__name {
-    color: #ff6b81; /* A subtle red to indicate admin state */
+    color: #ff6b81;
 }
 
 body.admin-mode .header__title::after {
@@ -94,8 +97,62 @@ body.admin-mode .header__title::after {
     letter-spacing: 2px;
 }
 
-/* Override close button position for login modal */
 #login-close {
     top: 1rem;
     right: 1rem;
+}
+
+.collage__delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s, transform 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.collage__delete-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.collage__delete-btn:hover {
+    background-color: rgba(255, 71, 87, 0.9);
+    border-color: rgba(255, 71, 87, 1);
+    transform: scale(1.15);
+}
+
+body.admin-mode .collage__delete-btn {
+    display: flex;
+}
+
+.add-artwork-btn {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    color: #28a745;
+}
+
+body.admin-mode .add-artwork-btn {
+    display: flex;
+}
+
+.add-artwork-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.add-artwork-btn:hover {
+    color: #34ce57;
 }

@@ -131,7 +131,7 @@ export class Modal {
             const computedStyle = window.getComputedStyle(document.body);
             const currentPaddingRight = parseFloat(computedStyle.paddingRight) || 0;
             this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            
+
             this.originalPaddingRight = document.body.style.paddingRight;
             this.originalBodyOverflow = document.body.style.overflow;
 

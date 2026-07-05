@@ -59,10 +59,10 @@ export class Collage {
             window.addEventListener('scroll', () => {
                 const items = document.querySelectorAll('.collage__item');
                 if (items.length === 0) return;
-                
+
                 const lastItem = items[items.length - 1];
                 const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150;
-                
+
                 if (isAtBottom) {
                     if (!wasAtBottom) {
                         items.forEach(item => {
@@ -74,8 +74,6 @@ export class Collage {
                 } else {
                     if (wasAtBottom) {
                         lastItem.classList.remove('is-active');
-                        // We just left the bottom, manually check and restore the active state
-                        // for whichever item is currently in the center of the screen
                         const center = window.innerHeight / 2;
                         items.forEach(item => {
                             const r = item.getBoundingClientRect();
@@ -112,9 +110,19 @@ export class Collage {
             title.className = 'collage__title';
             title.textContent = art.title;
 
+            // Delete button for Admin Mode
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'collage__delete-btn';
+            deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Don't trigger the modal
+                document.dispatchEvent(new CustomEvent('requestDeleteArtwork', { detail: art }));
+            });
+
             overlay.appendChild(title);
             item.appendChild(img);
             item.appendChild(overlay);
+            item.appendChild(deleteBtn);
             this.container.appendChild(item);
 
             appearObserver.observe(item);

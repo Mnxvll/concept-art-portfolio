@@ -4,7 +4,7 @@ export class Admin {
         this.closeBtn = document.getElementById('login-close');
         this.form = document.getElementById('login-form');
         this.overlay = document.getElementById('login-overlay');
-        
+
         if (this.modal && this.form) {
             this.initEventListeners();
         }
@@ -13,7 +13,7 @@ export class Admin {
     initEventListeners() {
         // Keyboard shortcut: Ctrl + Shift + A
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'ñ') {
                 e.preventDefault();
                 this.toggleModal();
             }
@@ -74,7 +74,7 @@ export class Admin {
             document.body.classList.add('admin-mode');
             this.closeModal();
             passInput.value = ''; // clear password
-            
+
             // Dispatch event to let other components know admin mode is on
             document.dispatchEvent(new CustomEvent('adminModeActivated'));
         }
