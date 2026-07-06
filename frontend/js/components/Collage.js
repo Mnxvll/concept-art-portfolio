@@ -8,10 +8,49 @@ export class Collage {
         this.container = container;
         this.artworks = artworks;
         this.onArtworkClick = onArtworkClick;
+        this.currentColumns = 0;
+        this.resizeTimer = null;
+
+        window.addEventListener('resize', () => {
+            if (this.resizeTimer) clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(() => {
+                this.checkAndRender();
+            }, 150);
+        });
     }
 
     render() {
+        // Initial render forces column check
+        this.currentColumns = 0; 
+        this.checkAndRender();
+    }
+
+    checkAndRender() {
+        // Determine columns based on window width
+        let cols = 3;
+        if (window.innerWidth <= 768) {
+            cols = 1;
+        } else if (window.innerWidth <= 1200) {
+            cols = 2;
+        }
+
+        // Only re-render if the number of columns changed
+        if (this.currentColumns !== cols) {
+            this.currentColumns = cols;
+            this.forceRender();
+        }
+    }
+
+    forceRender() {
         this.container.innerHTML = '';
+
+        const columns = [];
+        for (let i = 0; i < this.currentColumns; i++) {
+            const col = document.createElement('div');
+            col.className = 'collage__column';
+            columns.push(col);
+            this.container.appendChild(col);
+        }
 
         // Setup observer for entrance animations
         let appearDelay = 0;
@@ -87,7 +126,7 @@ export class Collage {
             }, { passive: true });
         }
 
-        this.artworks.forEach((art) => {
+        this.artworks.forEach((art, index) => {
             const item = document.createElement('div');
             item.className = 'collage__item';
 
@@ -123,7 +162,10 @@ export class Collage {
             item.appendChild(img);
             item.appendChild(overlay);
             item.appendChild(deleteBtn);
-            this.container.appendChild(item);
+            
+            // Distribute items into columns sequentially
+            const colIndex = index % this.currentColumns;
+            columns[colIndex].appendChild(item);
 
             appearObserver.observe(item);
 

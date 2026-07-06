@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = new Modal(artworks);
     const admin = new Admin();
     
+    // Sort artworks from most recent to oldest
+    artworks.sort((a, b) => new Date(b.artwork_date) - new Date(a.artwork_date));
+
     const collage = new Collage(collageContainer, artworks, (artwork) => {
         modal.open(artwork);
     });
