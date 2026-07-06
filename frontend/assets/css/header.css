@@ -44,7 +44,7 @@
 .header__nav {
     display: flex;
     gap: 2rem;
-    margin-right: 2.rem;
+    margin-right: 2rem;
 }
 
 .header__link {
@@ -109,7 +109,7 @@
     .header__nav {
         flex-direction: row;
         gap: 1rem;
-        margin-right: 0;
+        margin-right: -0.5rem;
         width: auto;
         align-items: center;
     }
