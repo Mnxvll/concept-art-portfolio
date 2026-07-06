@@ -31,14 +31,17 @@
 }
 
 .footer__dev-link {
-    color: var(--accent-color);
+    color: #ffffff;
+    font-weight: 500;
     text-decoration: none;
     transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.footer__dev-link:hover {
-    color: var(--text-color);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+@media (hover: hover) {
+    .footer__dev-link:hover {
+        text-shadow: 0 0 2px rgba(255, 255, 255, 1);
+        border: none;
+    }
 }
 
 .footer__cta {
@@ -56,8 +59,10 @@
     transition: color 0.3s ease;
 }
 
-.footer__link:hover {
-    color: var(--text-color);
+@media (hover: hover) {
+    .footer__link:hover {
+        color: var(--text-color);
+    }
 }
 
 /* Mobile responsive */

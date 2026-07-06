@@ -25,6 +25,7 @@ export class Modal {
         this.title = document.getElementById('modal-title');
         this.category = document.getElementById('modal-category');
         this.description = document.getElementById('modal-description');
+        this.date = document.getElementById('modal-date');
         this.textPane = document.querySelector('.modal__text-pane');
 
         // Fullscreen elements
@@ -154,6 +155,7 @@ export class Modal {
         this.title.textContent = currentArt.title;
         this.category.textContent = currentArt.category;
         this.description.textContent = currentArt.description;
+        this.date.textContent = 'Created on ' + currentArt.artwork_date;
 
         if (this.currentProjectGroup.length > 1) {
             this.prevBtn.classList.remove('hidden');
