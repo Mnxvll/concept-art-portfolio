@@ -58,6 +58,8 @@ export class Admin {
         document.body.classList.remove('admin-mode');
         // Let other components know admin mode is off
         document.dispatchEvent(new CustomEvent('adminModeDeactivated'));
+        // Reload page to reset state
+        window.location.reload();
     }
 
     closeModal() {

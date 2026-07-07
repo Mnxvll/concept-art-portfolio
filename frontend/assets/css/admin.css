@@ -82,6 +82,87 @@
     transform: translateY(-2px);
 }
 
+.login-error.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.admin-mode [contenteditable="true"] {
+    outline: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-left: -6px; /* offset padding */
+    transition: background 0.3s, outline 0.3s;
+    cursor: text;
+}
+
+body.admin-mode [contenteditable="true"]:hover,
+body.admin-mode [contenteditable="true"]:focus {
+    background: rgba(255, 255, 255, 0.1);
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.modal__date-picker {
+    display: none;
+}
+
+body.admin-mode .modal__date-picker {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    color: #888888;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+body.admin-mode .modal__date-picker:hover,
+body.admin-mode .modal__date-picker:focus {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body.admin-mode .modal__date-picker::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.modal__save-btn {
+    display: none;
+}
+
+body.admin-mode .modal__save-btn {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+    padding: 0.8rem 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+}
+
+body.admin-mode .modal__save-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+body.admin-mode .modal__save-btn.success {
+    background-color: #28a745;
+}
+
+body.admin-mode #modal-date {
+    display: none;
+}
+
 .login-btn:active {
     transform: translateY(0);
 }

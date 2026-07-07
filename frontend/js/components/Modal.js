@@ -26,6 +26,13 @@ export class Modal {
         this.category = document.getElementById('modal-category');
         this.description = document.getElementById('modal-description');
         this.date = document.getElementById('modal-date');
+        this.datePicker = document.getElementById('modal-date-picker');
+        this.saveBtn = document.getElementById('modal-save-btn');
+        
+        // Prevent selecting future dates
+        const today = new Date().toISOString().split('T')[0];
+        this.datePicker.setAttribute('max', today);
+
         this.textPane = document.querySelector('.modal__text-pane');
 
         // Fullscreen elements
@@ -105,8 +112,54 @@ export class Modal {
             }
 
             if (!this.modal.classList.contains('hidden') && this.fullscreenView.classList.contains('hidden')) {
+                if (document.activeElement.isContentEditable || document.activeElement.tagName === 'INPUT') return;
+                
                 if (e.key === 'ArrowLeft') this.prev();
                 if (e.key === 'ArrowRight') this.next();
+            }
+        });
+
+        // Admin mode listeners
+        document.addEventListener('adminModeActivated', () => {
+            this.title.contentEditable = true;
+            this.category.contentEditable = true;
+            this.description.contentEditable = true;
+        });
+
+        document.addEventListener('adminModeDeactivated', () => {
+            this.title.contentEditable = false;
+            this.category.contentEditable = false;
+            this.description.contentEditable = false;
+        });
+
+        const saveEdits = () => {
+            if (!this.currentProjectGroup || this.currentProjectGroup.length === 0) return;
+            const currentArt = this.currentProjectGroup[this.currentIndex];
+            currentArt.title = this.title.textContent;
+            currentArt.category = this.category.textContent;
+            currentArt.description = this.description.textContent;
+            currentArt.artwork_date = this.datePicker.value;
+            this.date.textContent = 'Created on ' + currentArt.artwork_date;
+            
+            // Visual feedback
+            const originalText = this.saveBtn.textContent;
+            this.saveBtn.textContent = 'Saved!';
+            this.saveBtn.classList.add('success');
+            
+            setTimeout(() => {
+                this.saveBtn.textContent = originalText;
+                this.saveBtn.classList.remove('success');
+            }, 2000);
+        };
+
+        this.saveBtn.addEventListener('click', saveEdits);
+        
+        // Open date picker on click anywhere in the field
+        this.datePicker.addEventListener('click', (e) => {
+            try {
+                this.datePicker.showPicker();
+            } catch (err) {
+                // Ignore if browser doesn't support showPicker
             }
         });
     }
@@ -156,6 +209,12 @@ export class Modal {
         this.category.textContent = currentArt.category;
         this.description.textContent = currentArt.description;
         this.date.textContent = 'Created on ' + currentArt.artwork_date;
+        this.datePicker.value = currentArt.artwork_date;
+
+        const isAdmin = document.body.classList.contains('admin-mode');
+        this.title.contentEditable = isAdmin;
+        this.category.contentEditable = isAdmin;
+        this.description.contentEditable = isAdmin;
 
         if (this.currentProjectGroup.length > 1) {
             this.prevBtn.classList.remove('hidden');
