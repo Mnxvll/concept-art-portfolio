@@ -24,6 +24,7 @@ export class Modal {
         this.image = document.getElementById('modal-image');
         this.title = document.getElementById('modal-title');
         this.category = document.getElementById('modal-category');
+        this.categorySelect = document.getElementById('modal-category-select');
         this.description = document.getElementById('modal-description');
         this.date = document.getElementById('modal-date');
         this.datePicker = document.getElementById('modal-date-picker');
@@ -122,13 +123,11 @@ export class Modal {
         // Admin mode listeners
         document.addEventListener('adminModeActivated', () => {
             this.title.contentEditable = true;
-            this.category.contentEditable = true;
             this.description.contentEditable = true;
         });
 
         document.addEventListener('adminModeDeactivated', () => {
             this.title.contentEditable = false;
-            this.category.contentEditable = false;
             this.description.contentEditable = false;
         });
 
@@ -136,7 +135,8 @@ export class Modal {
             if (!this.currentProjectGroup || this.currentProjectGroup.length === 0) return;
             const currentArt = this.currentProjectGroup[this.currentIndex];
             currentArt.title = this.title.innerText;
-            currentArt.category = this.category.innerText;
+            currentArt.category = this.categorySelect ? this.categorySelect.value : this.category.innerText;
+            this.category.innerText = currentArt.category;
             currentArt.description = this.description.innerText;
             currentArt.artwork_date = this.datePicker.value;
             this.date.textContent = 'Created on ' + currentArt.artwork_date;
@@ -162,6 +162,11 @@ export class Modal {
             } catch (err) {
                 // Ignore if browser doesn't support showPicker
             }
+        });
+
+        // Blur select after choosing an option so hover state clears immediately
+        this.categorySelect.addEventListener('change', () => {
+            this.categorySelect.blur();
         });
     }
 
@@ -202,13 +207,28 @@ export class Modal {
         this.image.alt = currentArt.title;
         this.title.innerText = currentArt.title;
         this.category.innerText = currentArt.category;
+        if (this.categorySelect) {
+            // Remove any previously added custom option
+            const existingCustom = this.categorySelect.querySelector('option[data-custom]');
+            if (existingCustom) existingCustom.remove();
+
+            // If the artwork's category is not in the list, add it temporarily
+            const exists = Array.from(this.categorySelect.options).some(opt => opt.value === currentArt.category);
+            if (!exists && currentArt.category) {
+                const customOpt = document.createElement('option');
+                customOpt.value = currentArt.category;
+                customOpt.textContent = currentArt.category;
+                customOpt.setAttribute('data-custom', 'true');
+                this.categorySelect.insertBefore(customOpt, this.categorySelect.firstChild);
+            }
+            this.categorySelect.value = currentArt.category;
+        }
         this.description.innerText = currentArt.description;
         this.date.textContent = 'Created on ' + currentArt.artwork_date;
         this.datePicker.value = currentArt.artwork_date;
 
         const isAdmin = document.body.classList.contains('admin-mode');
         this.title.contentEditable = isAdmin;
-        this.category.contentEditable = isAdmin;
         this.description.contentEditable = isAdmin;
 
         if (this.currentProjectGroup.length > 1) {
