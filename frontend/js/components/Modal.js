@@ -135,9 +135,9 @@ export class Modal {
         const saveEdits = () => {
             if (!this.currentProjectGroup || this.currentProjectGroup.length === 0) return;
             const currentArt = this.currentProjectGroup[this.currentIndex];
-            currentArt.title = this.title.textContent;
-            currentArt.category = this.category.textContent;
-            currentArt.description = this.description.textContent;
+            currentArt.title = this.title.innerText;
+            currentArt.category = this.category.innerText;
+            currentArt.description = this.description.innerText;
             currentArt.artwork_date = this.datePicker.value;
             this.date.textContent = 'Created on ' + currentArt.artwork_date;
             
@@ -149,7 +149,8 @@ export class Modal {
             setTimeout(() => {
                 this.saveBtn.textContent = originalText;
                 this.saveBtn.classList.remove('success');
-            }, 2000);
+                this.close(); // Close the modal
+            }, 600);
         };
 
         this.saveBtn.addEventListener('click', saveEdits);
@@ -182,15 +183,9 @@ export class Modal {
         this.updateUI(pushHistory);
 
         if (isCurrentlyHidden) {
-            const computedStyle = window.getComputedStyle(document.body);
-            const currentPaddingRight = parseFloat(computedStyle.paddingRight) || 0;
-            this.scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            this.originalHtmlOverflow = document.documentElement.style.overflow;
+            document.documentElement.style.overflow = 'hidden';
 
-            this.originalPaddingRight = document.body.style.paddingRight;
-            this.originalBodyOverflow = document.body.style.overflow;
-
-            document.body.style.paddingRight = `${currentPaddingRight + this.scrollbarWidth}px`;
-            document.body.style.overflow = 'hidden';
             document.body.classList.add('modal-open');
         }
 
@@ -205,9 +200,9 @@ export class Modal {
 
         this.image.src = currentArt.image_url;
         this.image.alt = currentArt.title;
-        this.title.textContent = currentArt.title;
-        this.category.textContent = currentArt.category;
-        this.description.textContent = currentArt.description;
+        this.title.innerText = currentArt.title;
+        this.category.innerText = currentArt.category;
+        this.description.innerText = currentArt.description;
         this.date.textContent = 'Created on ' + currentArt.artwork_date;
         this.datePicker.value = currentArt.artwork_date;
 
@@ -260,10 +255,10 @@ export class Modal {
         }
 
         const cleanup = () => {
-            document.body.style.paddingRight = this.originalPaddingRight || '';
-            document.body.style.overflow = this.originalBodyOverflow || '';
+            document.documentElement.style.overflow = this.originalHtmlOverflow || '';
             document.body.classList.remove('modal-open');
 
+            this.modal.classList.add('hidden');
             this.image.src = '';
             this.currentProjectGroup = [];
             this.currentIndex = 0;

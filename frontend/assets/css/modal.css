@@ -143,14 +143,17 @@
     object-fit: contain;
     border-radius: 4px;
     cursor: zoom-in;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
 }
 
 .modal__text-pane {
     flex: 2;
-    padding: 3rem 2rem;
+    padding: 3rem 5rem 3rem 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     overflow-y: auto;
 }
 
