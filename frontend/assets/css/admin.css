@@ -305,3 +305,166 @@ body.admin-mode .add-artwork-btn {
 .add-artwork-btn:hover {
     color: #34ce57;
 }
+
+/* ─── Add Artwork Modal ─────────────────────────────────────── */
+
+.add-artwork-content {
+    position: relative;
+    width: 92vw;
+    max-width: 1050px;
+    height: 82vh;
+    background-color: var(--bg-color);
+    border-radius: 12px;
+    display: flex;
+    overflow: hidden;
+    z-index: 1001;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+/* ─── Left: Image pane ──────────────────────────────────────── */
+
+.add-artwork__image-pane {
+    flex: 1;
+    background-color: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    min-width: 0;
+}
+
+.add-artwork__image-pane:hover {
+    background-color: #0a0a0a;
+}
+
+.add-artwork__image-pane.drag-over {
+    background-color: rgba(255, 255, 255, 0.05);
+    outline: 2px dashed rgba(255, 255, 255, 0.5);
+    outline-offset: -12px;
+}
+
+.add-artwork__preview {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+.add-artwork__preview.hidden {
+    display: none;
+}
+
+.add-artwork__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    padding: 2rem;
+    text-align: center;
+}
+
+.add-artwork__placeholder svg {
+    width: 48px;
+    height: 48px;
+}
+
+.add-artwork__placeholder p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.add-artwork__placeholder span {
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.add-artwork__placeholder.hidden {
+    display: none;
+}
+
+/* ─── Right: Form pane ──────────────────────────────────────── */
+
+.add-artwork__form-pane {
+    flex: 1;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    min-width: 0;
+}
+
+.add-artwork__form-pane .login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.add-artwork__form-pane .add-form__textarea {
+    flex: 1;
+    min-height: 120px;
+}
+
+/* ─── Field styles ──────────────────────────────────────────── */
+
+.add-form__textarea {
+    resize: none;
+    line-height: 1.5;
+    letter-spacing: 0;
+    text-align: left;
+    font-family: inherit;
+}
+
+.add-form__select {
+    text-align: center;
+    letter-spacing: 0;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.add-form__select option {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+#add-artwork-date::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+#add-artwork-date {
+    cursor: pointer;
+}
+
+body.admin-mode .login-btn.success {
+    background-color: #28a745;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+    .add-artwork-content {
+        flex-direction: column;
+        width: 95vw;
+        height: 90dvh;
+    }
+
+    .add-artwork__image-pane {
+        flex: 0 0 40%;
+    }
+
+    .add-artwork__form-pane {
+        flex: 1;
+        padding: 1.5rem;
+    }
+}

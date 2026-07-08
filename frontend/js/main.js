@@ -1,7 +1,8 @@
 import { artworks } from './services/mockData.js';
 import { Collage } from './components/Collage.js';
 import { Modal } from './components/Modal.js';
-import { Admin } from './components/Admin.js';
+import { Admin } from './components/AdminAuth.js';
+import { AddArtwork } from './components/AddArtwork.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     if ('scrollRestoration' in history) {
@@ -11,7 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const collageContainer = document.getElementById('collage-container');
     const modal = new Modal(artworks);
     const admin = new Admin();
-    
+    const addArtworkModal = new AddArtwork((newArtwork) => {
+        artworks.push(newArtwork);
+        artworks.sort((a, b) => new Date(b.artwork_date) - new Date(a.artwork_date));
+        collage.render();
+    });
+
     // Sort artworks from most recent to oldest
     artworks.sort((a, b) => new Date(b.artwork_date) - new Date(a.artwork_date));
 
@@ -32,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // (Popstate listener moved below Resume logic)
 
     // --- Resume Modal Logic ---
     const resumeBtn = document.getElementById('nav-resume');
@@ -112,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const footer = document.querySelector('.footer');
     if (footer && backToTopBtn) {
         document.body.style.position = 'relative'; // Ensure body is the relative container
-        
+
         const footerObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -128,11 +133,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     backToTopBtn.style.transform = '';
                 }
             });
-        }, { 
+        }, {
             root: null,
             threshold: 0,
             // Small positive margin so it triggers just before hitting the footer
-            rootMargin: '50px 0px 0px 0px' 
+            rootMargin: '50px 0px 0px 0px'
         });
 
         footerObserver.observe(footer);
@@ -174,10 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
         artworkToDelete = null;
     };
 
-    if(confirmOverlay) confirmOverlay.addEventListener('click', closeConfirmModal);
-    if(confirmCancel) confirmCancel.addEventListener('click', closeConfirmModal);
+    if (confirmOverlay) confirmOverlay.addEventListener('click', closeConfirmModal);
+    if (confirmCancel) confirmCancel.addEventListener('click', closeConfirmModal);
 
-    if(confirmDelete) confirmDelete.addEventListener('click', () => {
+    if (confirmDelete) confirmDelete.addEventListener('click', () => {
         if (artworkToDelete) {
             // Mock deletion: remove from artworks array and re-render
             const index = artworks.findIndex(a => a.id === artworkToDelete.id);
@@ -193,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addArtworkBtn = document.getElementById('add-artwork-btn');
     if (addArtworkBtn) {
         addArtworkBtn.addEventListener('click', () => {
-            console.log("Open Add Artwork Modal (To be implemented in Phase 3)");
+            addArtworkModal.open();
         });
     }
 });
