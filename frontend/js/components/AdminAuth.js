@@ -13,7 +13,7 @@ export class Admin {
     initEventListeners() {
         // Keyboard shortcut: Ctrl + Shift + A
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'ñ') {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 's') {
                 e.preventDefault();
                 this.toggleModal();
             }

@@ -136,6 +136,11 @@ export class Collage {
             img.className = 'collage__image';
             img.loading = 'lazy';
 
+            // Fade-in when the image finishes loading
+            img.addEventListener('load', () => img.classList.add('loaded'));
+            // Handle already-cached images (load event won't fire)
+            if (img.complete) img.classList.add('loaded');
+
             item.addEventListener('click', () => {
                 if (this.onArtworkClick) {
                     this.onArtworkClick(art);

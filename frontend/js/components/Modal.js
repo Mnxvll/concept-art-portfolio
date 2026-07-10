@@ -29,7 +29,7 @@ export class Modal {
         this.date = document.getElementById('modal-date');
         this.datePicker = document.getElementById('modal-date-picker');
         this.saveBtn = document.getElementById('modal-save-btn');
-        
+
         // Prevent selecting future dates
         const today = new Date().toISOString().split('T')[0];
         this.datePicker.setAttribute('max', today);
@@ -114,7 +114,7 @@ export class Modal {
 
             if (!this.modal.classList.contains('hidden') && this.fullscreenView.classList.contains('hidden')) {
                 if (document.activeElement.isContentEditable || document.activeElement.tagName === 'INPUT') return;
-                
+
                 if (e.key === 'ArrowLeft') this.prev();
                 if (e.key === 'ArrowRight') this.next();
             }
@@ -140,12 +140,12 @@ export class Modal {
             currentArt.description = this.description.innerText;
             currentArt.artwork_date = this.datePicker.value;
             this.date.textContent = 'Created on ' + currentArt.artwork_date;
-            
+
             // Visual feedback
             const originalText = this.saveBtn.textContent;
             this.saveBtn.textContent = 'Saved!';
             this.saveBtn.classList.add('success');
-            
+
             setTimeout(() => {
                 this.saveBtn.textContent = originalText;
                 this.saveBtn.classList.remove('success');
@@ -154,7 +154,7 @@ export class Modal {
         };
 
         this.saveBtn.addEventListener('click', saveEdits);
-        
+
         // Open date picker on click anywhere in the field
         this.datePicker.addEventListener('click', (e) => {
             try {
@@ -208,7 +208,7 @@ export class Modal {
         this.title.innerText = currentArt.title;
         this.category.innerText = currentArt.category;
         if (this.categorySelect) {
-            // Remove any previously added custom option
+
             const existingCustom = this.categorySelect.querySelector('option[data-custom]');
             if (existingCustom) existingCustom.remove();
 
