@@ -22,7 +22,7 @@ export class AddArtwork {
         this.descriptionInput = document.getElementById('add-artwork-description');
 
         // Slim Select — replaces the native <select> with a custom styled dropdown
-        this.slimSelect = new SlimSelect({ 
+        this.slimSelect = new SlimSelect({
             select: this.categorySelect,
             settings: { showSearch: false, closeOnSelect: true },
             events: {

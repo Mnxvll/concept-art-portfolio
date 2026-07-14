@@ -135,7 +135,7 @@ export class Modal {
         document.addEventListener('adminModeActivated', () => {
             this.title.contentEditable = true;
             this.description.contentEditable = true;
-            
+
             if (!this.flatpickr) {
                 this.flatpickr = flatpickr(this.datePicker, {
                     dateFormat: 'Y-m-d',
@@ -155,11 +155,31 @@ export class Modal {
 
         const saveEdits = () => {
             if (!this.currentProjectGroup || this.currentProjectGroup.length === 0) return;
+
+            // Validate required fields
+            let hasError = false;
+            const titleText = this.title.innerText.trim();
+            const descText = this.description.innerText.trim();
+
+            this.title.style.outline = '';
+            this.description.style.outline = '';
+
+            if (!titleText) {
+                this.title.style.outline = '2px solid rgba(255, 71, 87, 0.9)';
+                hasError = true;
+            }
+            if (!descText) {
+                this.description.style.outline = '2px solid rgba(255, 71, 87, 0.9)';
+                hasError = true;
+            }
+
+            if (hasError) return;
+
             const currentArt = this.currentProjectGroup[this.currentIndex];
-            currentArt.title = this.title.innerText;
+            currentArt.title = titleText;
             currentArt.category = this.categorySelect ? this.categorySelect.value : this.category.innerText;
             this.category.innerText = currentArt.category;
-            currentArt.description = this.description.innerText;
+            currentArt.description = descText;
             currentArt.artwork_date = this.datePicker.value;
             this.date.textContent = 'Created on ' + currentArt.artwork_date;
 

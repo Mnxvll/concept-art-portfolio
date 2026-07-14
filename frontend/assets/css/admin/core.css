@@ -140,7 +140,7 @@ body.admin-mode [contenteditable="true"]:focus {
 
 body.admin-mode .modal__category-select {
     display: block;
-    width: calc(100% + 6px);
+    width: calc(100% + 7px);
     margin-left: -6px;
     box-sizing: border-box;
     margin-bottom: 2rem;
@@ -180,7 +180,7 @@ body.admin-mode .modal__category {
 
 body.admin-mode .modal__date-picker {
     display: block;
-    width: calc(100% + 6px);
+    width: calc(100% + 7px);
     margin-left: -6px;
     box-sizing: border-box;
     background: rgba(0, 0, 0, 0.3);
@@ -308,4 +308,3 @@ body.admin-mode .add-artwork-btn {
 .add-artwork-btn:hover {
     color: #34ce57;
 }
-
