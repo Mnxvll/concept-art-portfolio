@@ -131,6 +131,28 @@ export class Modal {
             }
         });
 
+        const enforceLimit = (element, maxLimit) => {
+            element.addEventListener('keydown', (e) => {
+                const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab'];
+                if (allowedKeys.includes(e.key) || e.ctrlKey || e.metaKey) return;
+
+                if (element.innerText.length >= maxLimit) {
+                    e.preventDefault();
+                }
+            });
+            element.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const text = (e.clipboardData || window.clipboardData).getData('text');
+                const remaining = maxLimit - element.innerText.length;
+                if (remaining > 0) {
+                    document.execCommand('insertText', false, text.substring(0, remaining));
+                }
+            });
+        };
+
+        enforceLimit(this.title, 100);
+        enforceLimit(this.description, 2000);
+
         // Admin mode listeners
         document.addEventListener('adminModeActivated', () => {
             this.title.contentEditable = true;
