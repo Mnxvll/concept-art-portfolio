@@ -1,0 +1,141 @@
+/* ─── Slim Select Theme ─────────────────────────────────────────────────────── */
+
+/* ─── Universal Dropdown Menu ─── */
+body.admin-mode .ss-content {
+    background: #111111 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    margin-top: 4px;
+}
+
+body.admin-mode .ss-search {
+    display: none;
+}
+
+body.admin-mode .ss-list .ss-option {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 1px;
+    padding: 10px 16px !important;
+    background: transparent !important;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+body.admin-mode .ss-list .ss-option:hover,
+body.admin-mode .ss-list .ss-option.ss-highlighted {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+body.admin-mode .ss-list .ss-option.ss-selected {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+body.admin-mode .ss-arrow path {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Add Artwork Modal (Looks like .login-input) ─── */
+body.admin-mode .login-form .ss-main {
+    width: 100%;
+    padding: 14px 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-color, #ffffff);
+    font-family: inherit;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    box-shadow: none !important;
+}
+
+body.admin-mode .login-form .ss-main .ss-values {
+    justify-content: center;
+    flex: 1;
+    display: flex;
+}
+
+body.admin-mode .login-form .ss-main .ss-values .ss-single,
+body.admin-mode .login-form .ss-main .ss-values .ss-placeholder {
+    text-align: center;
+    color: var(--text-color, #ffffff);
+    width: auto;
+}
+
+/* Absolute position arrow to ensure perfect centering of text without arrow shifting it */
+body.admin-mode .login-form .ss-main .ss-arrow {
+    position: absolute;
+    right: 1rem;
+}
+
+body.admin-mode .login-form .ss-main:hover,
+body.admin-mode .login-form .ss-main:focus,
+body.admin-mode .login-form .ss-main.ss-focus,
+body.admin-mode .login-form .ss-main.ss-open-below,
+body.admin-mode .login-form .ss-main.ss-open-above {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* ─── Edit Modal (Looks like dashed contenteditable) ─── */
+body.admin-mode .modal__text-pane .ss-main {
+    align-self: stretch;
+    width: auto;
+    margin-left: -6px;
+    margin-right: -1px;
+    margin-bottom: 2rem;
+    padding: 2px 6px;
+    background: transparent;
+    outline: 1px dashed rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 4px;
+    color: var(--accent-color);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: outline 0.3s ease, background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: none !important;
+}
+
+body.admin-mode .modal__text-pane .ss-main .ss-values {
+    justify-content: flex-start;
+    flex: 1;
+    display: flex;
+}
+
+body.admin-mode .modal__text-pane .ss-main .ss-values .ss-single,
+body.admin-mode .modal__text-pane .ss-main .ss-values .ss-placeholder {
+    text-align: left;
+    color: var(--accent-color);
+    width: auto;
+}
+
+body.admin-mode .modal__text-pane .ss-main:hover,
+body.admin-mode .modal__text-pane .ss-main:focus,
+body.admin-mode .modal__text-pane .ss-main.ss-focus,
+body.admin-mode .modal__text-pane .ss-main.ss-open-below,
+body.admin-mode .modal__text-pane .ss-main.ss-open-above {
+    outline: 1px solid rgba(255, 255, 255, 0.8) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: none !important;
+    box-shadow: none !important;
+}

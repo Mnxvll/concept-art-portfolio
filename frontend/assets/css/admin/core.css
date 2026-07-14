@@ -1,0 +1,311 @@
+.login-content {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto !important;
+}
+
+.login-title {
+    font-family: 'Dobra', sans-serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.login-subtitle {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 2rem 0;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login-input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.login-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    letter-spacing: 1px;
+}
+
+.login-input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(0, 0, 0, 0.5);
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.login-btn {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-btn:hover {
+    background-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.cancel-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 120px;
+}
+
+.cancel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.cancel-btn:active,
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.login-error.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.admin-mode [contenteditable="true"] {
+    outline: 1px dashed rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin-left: -6px;
+    /* offset padding */
+    transition: background 0.3s, outline 0.3s;
+    cursor: text;
+}
+
+body.admin-mode [contenteditable="true"]:hover,
+body.admin-mode [contenteditable="true"]:focus {
+    background: rgba(255, 255, 255, 0.1);
+    outline: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.modal__date-picker {
+    display: none;
+}
+
+.modal__category-select {
+    display: none;
+}
+
+body.admin-mode .modal__category-select {
+    display: block;
+    width: calc(100% + 6px);
+    margin-left: -6px;
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    color: var(--accent-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+body.admin-mode .modal__category-select:hover,
+body.admin-mode .modal__category-select:focus {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.admin-mode .modal__category-select option {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+body.admin-mode .modal__category {
+    display: none;
+}
+
+body.admin-mode .modal__date-picker {
+    display: block;
+    width: calc(100% + 6px);
+    margin-left: -6px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.4);
+    color: #888888;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+body.admin-mode .modal__date-picker:hover,
+body.admin-mode .modal__date-picker:focus {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body.admin-mode .modal__date-picker::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.modal__save-btn {
+    display: none;
+}
+
+body.admin-mode .modal__save-btn {
+    display: block;
+    width: fit-content;
+    margin: 2rem auto 0 auto;
+    padding: 0.8rem 2rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+}
+
+body.admin-mode .modal__save-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+body.admin-mode .modal__save-btn.success {
+    background-color: #28a745;
+}
+
+body.admin-mode #modal-date {
+    display: none;
+}
+
+body.admin-mode .header__name {
+    color: #ff6b81;
+}
+
+body.admin-mode .header__title::after {
+    content: ' (ADMIN)';
+    color: #ff6b81;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+#login-close {
+    top: 1rem;
+    right: 1rem;
+}
+
+.collage__delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s, transform 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.collage__delete-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.collage__delete-btn:hover {
+    background-color: rgba(255, 71, 87, 0.9);
+    border-color: rgba(255, 71, 87, 1);
+    transform: scale(1.15);
+}
+
+body.admin-mode .collage__delete-btn {
+    display: flex;
+}
+
+.add-artwork-btn {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+    color: #28a745;
+}
+
+body.admin-mode .add-artwork-btn {
+    display: flex;
+}
+
+.add-artwork-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.add-artwork-btn:hover {
+    color: #34ce57;
+}
+

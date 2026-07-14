@@ -40,6 +40,17 @@ export class Modal {
         this.fullscreenView = document.getElementById('fullscreen-view');
         this.fullscreenImage = document.getElementById('fullscreen-image');
 
+        if (typeof SlimSelect !== 'undefined' && this.categorySelect) {
+            this.slimSelect = new SlimSelect({
+                select: this.categorySelect,
+                settings: { showSearch: false, closeOnSelect: true },
+                events: {
+                    afterChange: () => {
+                        if (document.activeElement) document.activeElement.blur();
+                    }
+                }
+            });
+        }
 
         this.initEvents();
     }
@@ -124,6 +135,17 @@ export class Modal {
         document.addEventListener('adminModeActivated', () => {
             this.title.contentEditable = true;
             this.description.contentEditable = true;
+            
+            if (!this.flatpickr) {
+                this.flatpickr = flatpickr(this.datePicker, {
+                    dateFormat: 'Y-m-d',
+                    maxDate: 'today',
+                    disableMobile: true,
+                });
+                if (this.datePicker.value) {
+                    this.flatpickr.setDate(this.datePicker.value);
+                }
+            }
         });
 
         document.addEventListener('adminModeDeactivated', () => {
@@ -155,19 +177,21 @@ export class Modal {
 
         this.saveBtn.addEventListener('click', saveEdits);
 
-        // Open date picker on click anywhere in the field
-        this.datePicker.addEventListener('click', (e) => {
-            try {
-                this.datePicker.showPicker();
-            } catch (err) {
-                // Ignore if browser doesn't support showPicker
-            }
-        });
+        // Flatpickr handles calendar opening on click
 
         // Blur select after choosing an option so hover state clears immediately
         this.categorySelect.addEventListener('change', () => {
             this.categorySelect.blur();
         });
+
+        // Close Flatpickr calendar when scrolling the text pane to prevent it from floating
+        if (this.textPane) {
+            this.textPane.addEventListener('scroll', () => {
+                if (this.flatpickr && this.flatpickr.isOpen) {
+                    this.flatpickr.close();
+                }
+            });
+        }
     }
 
     /**
@@ -222,10 +246,17 @@ export class Modal {
                 this.categorySelect.insertBefore(customOpt, this.categorySelect.firstChild);
             }
             this.categorySelect.value = currentArt.category;
+            if (this.slimSelect) {
+                this.slimSelect.setSelected(currentArt.category);
+            }
         }
         this.description.innerText = currentArt.description;
         this.date.textContent = 'Created on ' + currentArt.artwork_date;
+        this.datePicker.placeholder = currentArt.artwork_date || 'Date';
         this.datePicker.value = currentArt.artwork_date;
+        if (this.flatpickr) {
+            this.flatpickr.setDate(currentArt.artwork_date);
+        }
 
         const isAdmin = document.body.classList.contains('admin-mode');
         this.title.contentEditable = isAdmin;

@@ -1,0 +1,273 @@
+/* ─── Flatpickr Theme – Black & Gray ────────────────────────────────────────── */
+
+/* Calendar container */
+.flatpickr-calendar {
+    background: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 0;
+    overflow: hidden;
+    animation: flatpickr-fadeIn 0.2s ease-out;
+    width: 320px !important;
+}
+
+@keyframes flatpickr-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Arrows (top/bottom) */
+.flatpickr-calendar.arrowTop::before {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.flatpickr-calendar.arrowTop::after {
+    border-bottom-color: rgba(18, 18, 18, 0.95);
+}
+
+.flatpickr-calendar.arrowBottom::before {
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.flatpickr-calendar.arrowBottom::after {
+    border-top-color: rgba(18, 18, 18, 0.95);
+}
+
+/* ─── Month header ──────────────────────────────────────────── */
+
+.flatpickr-months {
+    padding: 4px 0 0 0;
+}
+
+.flatpickr-months .flatpickr-month {
+    background: transparent;
+    height: 40px;
+}
+
+.flatpickr-current-month {
+    padding-top: 6px;
+}
+
+.flatpickr-current-month .cur-month {
+    color: #ffffff;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    margin-right: 8px;
+    /* Spacing improvement */
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months option {
+    background: #121212 !important;
+    color: #ffffff !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+}
+
+.flatpickr-current-month input.cur-year {
+    color: rgba(255, 255, 255, 0.45) !important;
+    font-family: inherit !important;
+    font-weight: 500 !important;
+    font-size: 1.2rem !important;
+}
+
+.flatpickr-current-month input.cur-year:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.flatpickr-current-month .numInputWrapper:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+}
+
+.flatpickr-current-month .numInputWrapper span {
+    border: 0;
+}
+
+.flatpickr-current-month .numInputWrapper span:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.numInputWrapper span.arrowUp::after {
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+}
+
+.numInputWrapper span.arrowDown::after {
+    border-top-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ─── Nav arrows ────────────────────────────────────────────── */
+
+.flatpickr-prev-month,
+.flatpickr-next-month {
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+.flatpickr-prev-month:hover,
+.flatpickr-next-month:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+    fill: rgba(255, 255, 255, 0.4);
+    transition: fill 0.2s ease;
+    width: 12px;
+    height: 12px;
+}
+
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg {
+    fill: #ffffff;
+}
+
+/* ─── Weekday labels ────────────────────────────────────────── */
+
+.flatpickr-weekdays {
+    background: transparent;
+    padding: 4px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+span.flatpickr-weekday {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* ─── Day cells ─────────────────────────────────────────────── */
+
+.flatpickr-days {
+    border: none;
+    padding: 4px 6px 8px;
+}
+
+.dayContainer {
+    gap: 2px;
+}
+
+.flatpickr-day {
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    height: 32px;
+    max-width: 32px;
+    line-height: 28px;
+
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.flatpickr-day:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.flatpickr-day.prevMonthDay:hover,
+.flatpickr-day.nextMonthDay:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ─── Today ─────────────────────────────────────────────────── */
+
+.flatpickr-day.today {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.flatpickr-day.today:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ─── Selected ──────────────────────────────────────────────── */
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.selected:focus {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #0d0d0d;
+    font-weight: 700;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+/* ─── Disabled ──────────────────────────────────────────────── */
+
+.flatpickr-day.disabled,
+.flatpickr-day.flatpickr-disabled {
+    color: rgba(255, 255, 255, 0.1);
+}
+
+.flatpickr-day.disabled:hover,
+.flatpickr-day.flatpickr-disabled:hover {
+    background: transparent;
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.1);
+    transform: none;
+}
+
+/* ─── Inner container border reset ──────────────────────────── */
+
+.flatpickr-innerContainer {
+    border-bottom: none;
+}
+
+.flatpickr-rContainer {
+    width: 100%;
+}
+
+/* ─── Prevent typing in year input ──────────────────────────── */
+
+.flatpickr-current-month input.cur-year {
+    pointer-events: none;
+}

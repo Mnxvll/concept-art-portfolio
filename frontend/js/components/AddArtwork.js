@@ -21,9 +21,23 @@ export class AddArtwork {
         this.dateInput = document.getElementById('add-artwork-date');
         this.descriptionInput = document.getElementById('add-artwork-description');
 
-        // Prevent selecting future dates
-        const today = new Date().toISOString().split('T')[0];
-        this.dateInput.setAttribute('max', today);
+        // Slim Select — replaces the native <select> with a custom styled dropdown
+        this.slimSelect = new SlimSelect({ 
+            select: this.categorySelect,
+            settings: { showSearch: false, closeOnSelect: true },
+            events: {
+                afterChange: () => {
+                    if (document.activeElement) document.activeElement.blur();
+                }
+            }
+        });
+
+        // Flatpickr — replaces the native date input with a custom calendar
+        this.flatpickr = flatpickr(this.dateInput, {
+            dateFormat: 'Y-m-d',
+            maxDate: 'today',
+            disableMobile: true,
+        });
 
         this.initEvents();
     }
@@ -48,14 +62,7 @@ export class AddArtwork {
             this.categorySelect.blur();
         });
 
-        // Open date picker on click, matching edit modal behaviour
-        this.dateInput.addEventListener('click', () => {
-            try {
-                this.dateInput.showPicker();
-            } catch (err) {
-                // Ignore if browser doesn't support showPicker
-            }
-        });
+        // Flatpickr manages opening the calendar on click — no manual showPicker() needed
 
         // ── Image upload 
 
@@ -121,6 +128,9 @@ export class AddArtwork {
 
     reset() {
         this.form.reset();
+        // Reset Slim Select and Flatpickr to blank state
+        if (this.slimSelect) this.slimSelect.setSelected('');
+        if (this.flatpickr) this.flatpickr.clear();
         // Clear image preview
         this.preview.src = '';
         this.preview.classList.add('hidden');

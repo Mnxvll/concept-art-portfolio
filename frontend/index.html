@@ -7,6 +7,15 @@
     <title>Concept Art Portfolio</title>
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/header.css">
+    <!-- Slim Select: custom styled dropdowns -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slim-select@2/dist/slimselect.css">
+    <script src="https://cdn.jsdelivr.net/npm/slim-select@2/dist/slimselect.min.js" defer></script>
+
+    <!-- Flatpickr: custom date picker calendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr" defer></script>
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/resume.css">
@@ -98,6 +107,7 @@
                 <h2 id="modal-title" class="modal__title"></h2>
                 <span id="modal-category" class="modal__category"></span>
                 <select id="modal-category-select" class="modal__category-select">
+                    <option value="" disabled selected>Category</option>
                     <option value="Character Design">Character Design</option>
                     <option value="Environment Design">Environment Design</option>
                     <option value="Prop Design">Prop Design</option>
@@ -109,7 +119,7 @@
                 </select>
                 <p id="modal-description" class="modal__description"></p>
                 <p id="modal-date" class="modal__date"></p>
-                <input type="date" id="modal-date-picker" class="modal__date-picker">
+                <input type="date" id="modal-date-picker" class="modal__date-picker" placeholder="Date">
                 <button id="modal-save-btn" class="modal__save-btn hidden">Save Changes</button>
             </div>
         </div>
@@ -334,7 +344,7 @@
                         <option value="Matte Painting">Matte Painting</option>
                         <option value="UI/UX Design">UI/UX Design</option>
                     </select>
-                    <input type="date" id="add-artwork-date" class="login-input" required>
+                    <input type="date" id="add-artwork-date" class="login-input" placeholder="Date" required>
                     <textarea id="add-artwork-description" class="login-input add-form__textarea" placeholder="Description" required maxlength="1200"></textarea>
                     <button type="submit" class="login-btn">Add Artwork</button>
                 </form>
