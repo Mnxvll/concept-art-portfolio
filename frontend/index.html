@@ -282,9 +282,9 @@
     <div id="confirm-modal" class="modal hidden">
         <div class="modal__overlay" id="confirm-overlay"></div>
         <div class="modal__content login-content" style="padding-bottom: 2.5rem;">
-            <h3 class="login-title" style="width: 100%; text-align: left;">Delete Artwork</h3>
+            <h3 class="login-title" style="width: 100%; text-align: center; padding-bottom: 0.5rem;">Delete Artwork</h3>
             <p class="login-subtitle"
-                style="margin-bottom: 2rem; white-space: normal; line-height: 1.6; font-size: 1rem; text-align: left; width: 100%;">
+                style="margin-bottom: 2rem; white-space: normal; line-height: 1.6; font-size: 1rem; text-align: center; width: 100%;">
                 Are you sure you want to delete "<span id="confirm-art-title"
                     style="color: white; font-weight: bold;"></span>"?<br><br>This action cannot be undone.
             </p>
@@ -315,11 +315,11 @@
                 <input type="file" id="add-artwork-file" accept="image/*" hidden>
                 <img id="add-artwork-preview" class="add-artwork__preview hidden" src="" alt="Preview">
                 <div id="add-artwork-placeholder" class="add-artwork__placeholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="17 8 12 3 7 8" />
+                        <line x1="12" y1="3" x2="12" y2="15" />
                     </svg>
                     <p>Click or drag image here</p>
                     <span>PNG, JPG, WEBP</span>
@@ -331,8 +331,10 @@
                 <h3 class="login-title" style="text-align:left; margin-bottom:0.25rem;">New Artwork</h3>
                 <p class="login-subtitle" style="margin-bottom:1.75rem; text-align:left;">Add to portfolio</p>
                 <form id="add-artwork-form" class="login-form">
-                    <input type="text" id="add-artwork-title" class="login-input" placeholder="Title" required maxlength="120" autocomplete="off">
-                    <input type="text" id="add-artwork-project" class="login-input" placeholder="Project name (optional)" maxlength="80" autocomplete="off">
+                    <input type="text" id="add-artwork-title" class="login-input" placeholder="Title" required
+                        maxlength="120" autocomplete="off">
+                    <input type="text" id="add-artwork-project" class="login-input"
+                        placeholder="Project name (optional)" maxlength="80" autocomplete="off">
                     <select id="add-artwork-category" class="login-input add-form__select">
                         <option value="" disabled selected>Category</option>
                         <option value="Character Design">Character Design</option>
@@ -345,7 +347,8 @@
                         <option value="UI/UX Design">UI/UX Design</option>
                     </select>
                     <input type="date" id="add-artwork-date" class="login-input" placeholder="Date" required>
-                    <textarea id="add-artwork-description" class="login-input add-form__textarea" placeholder="Description" required maxlength="1200"></textarea>
+                    <textarea id="add-artwork-description" class="login-input add-form__textarea"
+                        placeholder="Description" required maxlength="1200"></textarea>
                     <button type="submit" class="login-btn">Add Artwork</button>
                 </form>
             </div>
