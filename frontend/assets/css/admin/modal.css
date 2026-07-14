@@ -142,24 +142,3 @@ body.admin-mode .login-btn.success {
     background-color: #28a745;
 }
 
-/* ─── Responsive ────────────────────────────────────────────── */
-
-@media (max-width: 700px) {
-    .add-artwork-content {
-        flex-direction: column;
-        width: 95vw;
-        height: 90dvh;
-    }
-
-    .add-artwork__image-pane {
-        flex: 0 0 40%;
-    }
-
-
-
-    .add-artwork__form-pane {
-        flex: 1;
-        padding: 1.5rem;
-    }
-}
-
