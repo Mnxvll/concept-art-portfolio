@@ -171,6 +171,7 @@ export class Modal {
             if (typeof flatpickr !== 'undefined' && !this.flatpickr) {
                 this.flatpickr = flatpickr(this.datePicker, {
                     dateFormat: 'Y-m-d',
+                    maxDate: 'today',
                     disableMobile: true,
                 });
                 if (this.datePicker.value) {

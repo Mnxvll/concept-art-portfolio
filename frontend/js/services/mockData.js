@@ -9,7 +9,7 @@ export const artworks = [
         image_url: "https://cdnb.artstation.com/p/assets/images/images/093/692/279/large/dfcponguta-week-9-final.webp?1763253062",
         cloudinary_id: "none",
         createdAt: new Date().toISOString(),
-        artwork_date: "2026-09-28"
+        artwork_date: "2026-06-28"
     },
     {
         id: "mock-4",
@@ -79,7 +79,7 @@ export const artworks = [
         image_url: "https://cdna.artstation.com/p/assets/images/images/085/198/556/large/josh-kao-darkhorse-chief-vs-elite-finalfinal.jpg?1740205989",
         cloudinary_id: "none",
         createdAt: new Date().toISOString(),
-        artwork_date: "2026-07-19"
+        artwork_date: "2026-07-09"
     },
     {
         id: "mock-9",
@@ -112,7 +112,7 @@ export const artworks = [
         image_url: "https://cdnb.artstation.com/p/assets/images/images/085/530/355/large/cyprien-rousson-vi-and-cait-lossless-4k.jpg?1741027537",
         cloudinary_id: "none",
         createdAt: new Date().toISOString(),
-        artwork_date: "2026-02-29"
+        artwork_date: "2026-02-28"
     },
     {
         id: "mock-12",

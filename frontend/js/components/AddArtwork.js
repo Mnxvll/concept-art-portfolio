@@ -41,6 +41,7 @@ export class AddArtwork {
             if (typeof flatpickr !== 'undefined' && !this.flatpickr) {
                 this.flatpickr = flatpickr(this.dateInput, {
                     dateFormat: 'Y-m-d',
+                    maxDate: 'today',
                     disableMobile: true,
                 });
             }
