@@ -169,6 +169,17 @@ export class AddArtwork {
                 this.dropzone.classList.add('drag-over');
                 setTimeout(() => this.dropzone.classList.remove('drag-over'), 800);
             }
+            if (!category) {
+                const ssMain = this.form.querySelector('.ss-main');
+                if (ssMain) {
+                    ssMain.classList.add('force-hover');
+                    setTimeout(() => ssMain.classList.remove('force-hover'), 800);
+                }
+            }
+            if (!artwork_date) {
+                this.dateInput.classList.add('force-hover');
+                setTimeout(() => this.dateInput.classList.remove('force-hover'), 800);
+            }
             return;
         }
 

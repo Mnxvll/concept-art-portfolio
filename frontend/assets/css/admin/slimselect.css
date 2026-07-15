@@ -82,7 +82,8 @@ body.admin-mode .login-form .ss-main:hover,
 body.admin-mode .login-form .ss-main:focus,
 body.admin-mode .login-form .ss-main.ss-focus,
 body.admin-mode .login-form .ss-main.ss-open-below,
-body.admin-mode .login-form .ss-main.ss-open-above {
+body.admin-mode .login-form .ss-main.ss-open-above,
+body.admin-mode .login-form .ss-main.force-hover {
     border-color: rgba(255, 255, 255, 0.3) !important;
     background: rgba(0, 0, 0, 0.5) !important;
     box-shadow: none !important;
