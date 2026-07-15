@@ -51,11 +51,29 @@ body {
     padding: 1rem;
 }
 
-/* Back to top button - Glassmorphism style */
+/* Back to top button - CSS sticky logic */
+.page-wrapper {
+    position: relative;
+    min-height: 100vh;
+}
+
+.back-to-top-wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 0; /* Zero width so it doesn't block interactions */
+    pointer-events: none;
+    z-index: 100;
+}
+
 .back-to-top {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    position: sticky;
+    /* Pin to bottom of viewport: 100vh - buttonHeight(70px) - bottomMargin(2rem/32px) */
+    top: calc(100vh - 70px - 2rem);
+    /* Shift left because wrapper has 0 width */
+    transform: translateX(calc(-100% - 2rem));
+    
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -69,24 +87,23 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 100;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.3s ease;
+    /* Added translateY for the initial hidden state */
+    margin-top: 20px; 
+    transition: opacity 0.4s ease, margin-top 0.4s ease, background-color 0.3s ease;
 }
 
 /* State when user scrolls down */
 .back-to-top.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    margin-top: 0;
 }
 
 @media (hover: hover) {
     .back-to-top:hover {
         background-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-5px);
     }
 }
 
@@ -101,8 +118,8 @@ body {
     .back-to-top {
         width: 50px;
         height: 50px;
-        right: 1.5rem;
-        bottom: 3rem;
+        top: calc(100vh - 50px - 3rem);
+        transform: translateX(calc(-100% - 1.5rem));
     }
 
     .back-to-top svg {

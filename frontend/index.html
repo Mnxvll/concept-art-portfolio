@@ -18,8 +18,9 @@
 </head>
 
 <body>
-    <!-- Main Header -->
-    <header class="header" id="main-header">
+    <div class="page-wrapper">
+        <!-- Main Header -->
+        <header class="header" id="main-header">
         <div class="header__brand">
             <h1 id="config-name" class="header__name">David Ponguta</h1>
             <h2 id="config-role" class="header__title">Concept Artist</h2>
@@ -39,6 +40,18 @@
     <!-- Collage Container -->
     <main id="collage-container" class="collage"></main>
 
+    <!-- Back to top button wrapper for CSS sticky logic -->
+    <div class="back-to-top-wrapper">
+        <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M18 15l-6-6-6 6" />
+            </svg>
+        </button>
+    </div>
+
+    </div> <!-- End page-wrapper -->
+
     <!-- Main Footer -->
     <footer class="footer">
         <div class="footer__left">
@@ -51,14 +64,6 @@
             <a id="config-footer-contact" href="mailto:ponguart@gmail.com" class="footer__link">Drop me a line at ponguart@gmail.com</a>
         </div>
     </footer>
-
-    <!-- Back to top button -->
-    <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M18 15l-6-6-6 6" />
-        </svg>
-    </button>
 
     <!-- Artwork Detail Modal -->
     <div id="artwork-modal" class="modal hidden">
