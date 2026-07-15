@@ -40,17 +40,7 @@ export class Modal {
         this.fullscreenView = document.getElementById('fullscreen-view');
         this.fullscreenImage = document.getElementById('fullscreen-image');
 
-        if (typeof SlimSelect !== 'undefined' && this.categorySelect) {
-            this.slimSelect = new SlimSelect({
-                select: this.categorySelect,
-                settings: { showSearch: false, closeOnSelect: true },
-                events: {
-                    afterChange: () => {
-                        if (document.activeElement) document.activeElement.blur();
-                    }
-                }
-            });
-        }
+
 
         this.initEvents();
     }
@@ -161,10 +151,26 @@ export class Modal {
             this.title.contentEditable = true;
             this.description.contentEditable = true;
 
-            if (!this.flatpickr) {
+            if (typeof SlimSelect !== 'undefined' && !this.slimSelect && this.categorySelect) {
+                this.slimSelect = new SlimSelect({
+                    select: this.categorySelect,
+                    settings: { showSearch: false, closeOnSelect: true },
+                    events: {
+                        afterChange: () => {
+                            if (document.activeElement) document.activeElement.blur();
+                        }
+                    }
+                });
+                
+                // If the modal is already open and showing an artwork, set its category
+                if (this.currentProjectGroup.length > 0 && this.currentProjectGroup[this.currentIndex]) {
+                    this.slimSelect.setSelected(this.currentProjectGroup[this.currentIndex].category);
+                }
+            }
+
+            if (typeof flatpickr !== 'undefined' && !this.flatpickr) {
                 this.flatpickr = flatpickr(this.datePicker, {
                     dateFormat: 'Y-m-d',
-                    maxDate: 'today',
                     disableMobile: true,
                 });
                 if (this.datePicker.value) {

@@ -21,28 +21,31 @@ export class AddArtwork {
         this.dateInput = document.getElementById('add-artwork-date');
         this.descriptionInput = document.getElementById('add-artwork-description');
 
-        // Slim Select — replaces the native <select> with a custom styled dropdown
-        this.slimSelect = new SlimSelect({
-            select: this.categorySelect,
-            settings: { showSearch: false, closeOnSelect: true },
-            events: {
-                afterChange: () => {
-                    if (document.activeElement) document.activeElement.blur();
-                }
-            }
-        });
-
-        // Flatpickr — replaces the native date input with a custom calendar
-        this.flatpickr = flatpickr(this.dateInput, {
-            dateFormat: 'Y-m-d',
-            maxDate: 'today',
-            disableMobile: true,
-        });
-
         this.initEvents();
     }
 
     initEvents() {
+        document.addEventListener('adminModeActivated', () => {
+            if (typeof SlimSelect !== 'undefined' && !this.slimSelect) {
+                this.slimSelect = new SlimSelect({
+                    select: this.categorySelect,
+                    settings: { showSearch: false, closeOnSelect: true },
+                    events: {
+                        afterChange: () => {
+                            if (document.activeElement) document.activeElement.blur();
+                        }
+                    }
+                });
+            }
+
+            if (typeof flatpickr !== 'undefined' && !this.flatpickr) {
+                this.flatpickr = flatpickr(this.dateInput, {
+                    dateFormat: 'Y-m-d',
+                    disableMobile: true,
+                });
+            }
+        });
+
         this.closeBtn.addEventListener('click', () => this.close());
         this.overlay.addEventListener('click', () => this.close());
 
