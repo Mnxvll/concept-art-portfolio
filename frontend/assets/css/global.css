@@ -150,3 +150,7 @@ body {
 body.modal-open {
     overscroll-behavior: none;
 }
+
+.modal-open {
+    overflow: hidden;
+}

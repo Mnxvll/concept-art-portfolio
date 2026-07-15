@@ -4,39 +4,43 @@ export class Modal {
     /**
      * @param {Array} artworks - Full database of artworks to enable project grouping
      */
-    constructor(artworks = []) {
+    constructor(modalElement, artworks = []) {
+        this.modal = modalElement;
         this.artworks = artworks;
         this.currentProjectGroup = [];
         this.currentIndex = 0;
 
+        if (!this.modal) return;
+
         // Base modal elements
-        this.modal = document.getElementById('artwork-modal');
-        this.overlay = document.getElementById('modal-overlay');
-        this.closeBtn = document.getElementById('modal-close');
+        this.overlay = this.modal.querySelector('#modal-overlay');
+        this.closeBtn = this.modal.querySelector('#modal-close');
 
         // Share elements
-        this.shareBtn = document.getElementById('modal-share');
-        this.shareText = document.getElementById('modal-share-text');
+        this.shareBtn = this.modal.querySelector('#modal-share');
+        this.shareText = this.modal.querySelector('#modal-share-text');
 
         // Navigation arrows
-        this.prevBtn = document.getElementById('modal-prev');
-        this.nextBtn = document.getElementById('modal-next');
+        this.prevBtn = this.modal.querySelector('#modal-prev');
+        this.nextBtn = this.modal.querySelector('#modal-next');
 
         // Data elements
-        this.image = document.getElementById('modal-image');
-        this.title = document.getElementById('modal-title');
-        this.category = document.getElementById('modal-category');
-        this.categorySelect = document.getElementById('modal-category-select');
-        this.description = document.getElementById('modal-description');
-        this.date = document.getElementById('modal-date');
-        this.datePicker = document.getElementById('modal-date-picker');
-        this.saveBtn = document.getElementById('modal-save-btn');
+        this.image = this.modal.querySelector('#modal-image');
+        this.title = this.modal.querySelector('#modal-title');
+        this.category = this.modal.querySelector('#modal-category');
+        this.categorySelect = this.modal.querySelector('#modal-category-select');
+        this.description = this.modal.querySelector('#modal-description');
+        this.date = this.modal.querySelector('#modal-date');
+        this.datePicker = this.modal.querySelector('#modal-date-picker');
+        this.saveBtn = this.modal.querySelector('#modal-save-btn');
 
         // Prevent selecting future dates
-        const today = new Date().toISOString().split('T')[0];
-        this.datePicker.setAttribute('max', today);
+        if (this.datePicker) {
+            const today = new Date().toISOString().split('T')[0];
+            this.datePicker.setAttribute('max', today);
+        }
 
-        this.textPane = document.querySelector('.modal__text-pane');
+        this.textPane = this.modal.querySelector('.modal__text-pane');
 
         // Fullscreen elements
         this.fullscreenView = document.getElementById('fullscreen-view');
@@ -275,9 +279,6 @@ export class Modal {
         this.updateUI(pushHistory);
 
         if (isCurrentlyHidden) {
-            this.originalHtmlOverflow = document.documentElement.style.overflow;
-            document.documentElement.style.overflow = 'hidden';
-
             document.body.classList.add('modal-open');
         }
 
@@ -369,7 +370,6 @@ export class Modal {
         }
 
         const cleanup = () => {
-            document.documentElement.style.overflow = this.originalHtmlOverflow || '';
             document.body.classList.remove('modal-open');
 
             this.modal.classList.add('hidden');
@@ -390,7 +390,7 @@ export class Modal {
             cleanup();
         } else {
             this.modal.classList.add('hidden');
-            setTimeout(cleanup, 200);
+            setTimeout(cleanup, 250);
         }
     }
 

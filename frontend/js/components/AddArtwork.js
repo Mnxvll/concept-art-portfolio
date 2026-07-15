@@ -2,24 +2,27 @@ export class AddArtwork {
     /**
      * @param {Function} onAdd - Callback(artwork) called when a new artwork is submitted
      */
-    constructor(onAdd) {
+    constructor(modalElement, onAdd) {
         this.onAdd = onAdd;
         this._objectUrl = null;
 
-        this.modal = document.getElementById('add-artwork-modal');
-        this.overlay = document.getElementById('add-artwork-overlay');
-        this.closeBtn = document.getElementById('add-artwork-close');
-        this.form = document.getElementById('add-artwork-form');
-        this.dropzone = document.getElementById('add-artwork-dropzone');
-        this.fileInput = document.getElementById('add-artwork-file');
-        this.preview = document.getElementById('add-artwork-preview');
-        this.placeholder = document.getElementById('add-artwork-placeholder');
+        this.modal = modalElement;
+        
+        if (!this.modal) return;
+        
+        this.overlay = this.modal.querySelector('#add-artwork-overlay');
+        this.closeBtn = this.modal.querySelector('#add-artwork-close');
+        this.form = this.modal.querySelector('#add-artwork-form');
+        this.dropzone = this.modal.querySelector('#add-artwork-dropzone');
+        this.fileInput = this.modal.querySelector('#add-artwork-file');
+        this.preview = this.modal.querySelector('#add-artwork-preview');
+        this.placeholder = this.modal.querySelector('#add-artwork-placeholder');
 
-        this.titleInput = document.getElementById('add-artwork-title');
-        this.projectInput = document.getElementById('add-artwork-project');
-        this.categorySelect = document.getElementById('add-artwork-category');
-        this.dateInput = document.getElementById('add-artwork-date');
-        this.descriptionInput = document.getElementById('add-artwork-description');
+        this.titleInput = this.modal.querySelector('#add-artwork-title');
+        this.projectInput = this.modal.querySelector('#add-artwork-project');
+        this.categorySelect = this.modal.querySelector('#add-artwork-category');
+        this.dateInput = this.modal.querySelector('#add-artwork-date');
+        this.descriptionInput = this.modal.querySelector('#add-artwork-description');
 
         this.initEvents();
     }
@@ -120,7 +123,7 @@ export class AddArtwork {
 
     open() {
         this.modal.classList.remove('hidden');
-        document.documentElement.style.overflow = 'hidden';
+        document.body.classList.add('modal-open');
         setTimeout(() => this.titleInput.focus(), 100);
     }
 
@@ -128,7 +131,7 @@ export class AddArtwork {
         if (this.slimSelect) this.slimSelect.close();
         if (this.flatpickr) this.flatpickr.close();
         this.modal.classList.add('hidden');
-        document.documentElement.style.overflow = '';
+        document.body.classList.remove('modal-open');
         this.reset();
     }
 

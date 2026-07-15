@@ -58,9 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const getUrlSlug = () => new URLSearchParams(window.location.search).get('obra');
 
     const collageContainer = document.getElementById('collage-container');
-    const modal = new Modal(artworks);
-    const admin = new Admin();
-    const addArtworkModal = new AddArtwork((newArtwork) => {
+    const artworkModalEl = document.getElementById('artwork-modal');
+    const loginModalEl = document.getElementById('login-modal');
+    const addArtworkModalEl = document.getElementById('add-artwork-modal');
+
+    const modal = new Modal(artworkModalEl, artworks);
+    const admin = new Admin(loginModalEl);
+    const addArtworkModal = new AddArtwork(addArtworkModalEl, (newArtwork) => {
         artworks.push(newArtwork);
         artworks.sort(byDateDesc);
         collage.render();
@@ -75,15 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     collage.render();
 
-    // Check URL for deep linking
-    const obraSlug = getUrlSlug();
-    if (obraSlug) {
-        const targetArt = artworks.find(a => a.slug === obraSlug);
-        if (targetArt) {
-            // Open without pushing state again since it's already in the URL
-            modal.open(targetArt, false);
-        }
-    }
+
 
 
     // --- Resume Modal Logic ---
@@ -97,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openResume = (pushHistory = true) => {
         resumeContent.scrollTop = 0;
         resumeModal.classList.remove('hidden');
-        document.documentElement.style.overflow = 'hidden'; // Prevent scrolling (#2)
+        document.body.classList.add('modal-open'); // Prevent scrolling (#2)
         if (pushHistory) {
             window.history.pushState({ resume: true }, '', window.location.pathname + '#resume');
         }
@@ -105,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeResume = (pushHistory = true) => {
         resumeModal.classList.add('hidden');
-        document.documentElement.style.overflow = ''; // (#2)
+        document.body.classList.remove('modal-open'); // (#2)
         if (pushHistory) {
             window.history.pushState(null, '', window.location.pathname);
         }
@@ -121,30 +117,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    if (window.location.hash === '#resume') {
-        openResume(false);
-    }
+    // --- Centralized Routing Logic ---
+    const handleRoute = () => {
+        const slug = getUrlSlug();
+        const isResume = window.location.hash === '#resume';
 
-    // Handle browser Back/Forward buttons (popstate)
-    window.addEventListener('popstate', () => {
-        const slug = getUrlSlug(); // (#4)
-
-        if (window.location.hash === '#resume') {
+        // Handle Resume Modal State
+        if (isResume) {
             openResume(false);
-        } else {
-            if (!resumeModal.classList.contains('hidden')) {
-                closeResume(false);
-            }
-            if (slug) {
-                const targetArt = artworks.find(a => a.slug === slug);
-                if (targetArt) {
-                    modal.open(targetArt, false);
-                }
+        } else if (!resumeModal.classList.contains('hidden')) {
+            closeResume(false);
+        }
+
+        // Handle Artwork Modal State
+        if (slug && !isResume) {
+            const targetArt = artworks.find(a => a.slug === slug);
+            if (targetArt) {
+                modal.open(targetArt, false);
             } else {
                 modal.close(false);
             }
+        } else {
+            // Only attempt to close if it might be open to avoid unnecessary DOM operations
+            // Modal internally checks if it's already hidden, but we just call close
+            modal.close(false);
         }
-    });
+    };
+
+    // Initialize route on load
+    handleRoute();
+
+    // Handle browser Back/Forward buttons
+    window.addEventListener('popstate', handleRoute);
 
     // --- Back to top button logic ---
     const backToTopBtn = document.getElementById('back-to-top');

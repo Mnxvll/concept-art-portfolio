@@ -1,13 +1,16 @@
 import { config } from '../config.js';
 
 export class Admin {
-    constructor() {
-        this.modal = document.getElementById('login-modal');
-        this.closeBtn = document.getElementById('login-close');
-        this.form = document.getElementById('login-form');
-        this.overlay = document.getElementById('login-overlay');
+    constructor(modalElement) {
+        this.modal = modalElement;
+        
+        if (!this.modal) return;
+        
+        this.closeBtn = this.modal.querySelector('#login-close');
+        this.form = this.modal.querySelector('#login-form');
+        this.overlay = this.modal.querySelector('#login-overlay');
 
-        if (this.modal && this.form) {
+        if (this.form) {
             this.initEventListeners();
         }
     }
@@ -48,10 +51,9 @@ export class Admin {
 
         if (this.modal.classList.contains('hidden')) {
             this.modal.classList.remove('hidden');
-            // Focus the email input
             setTimeout(() => {
-                const emailInput = document.getElementById('admin-email');
-                if (emailInput) emailInput.focus();
+                const passInput = this.modal.querySelector('#admin-pass');
+                if (passInput) passInput.focus();
             }, 100);
         } else {
             this.closeModal();
@@ -72,8 +74,8 @@ export class Admin {
     }
 
     authenticate() {
-        const passInput = document.getElementById('admin-pass');
-        const password = passInput.value;
+        const passInput = this.modal.querySelector('#admin-pass');
+        const password = passInput ? passInput.value : '';
 
         // Mock authentication: any input activates admin mode
         if (password.length > 0) {
