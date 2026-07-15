@@ -172,7 +172,7 @@ export class Modal {
                         }
                     }
                 });
-                
+
                 // If the modal is already open and showing an artwork, set its category
                 if (this.currentProjectGroup.length > 0 && this.currentProjectGroup[this.currentIndex]) {
                     this.slimSelect.setSelected(this.currentProjectGroup[this.currentIndex].category);
@@ -390,7 +390,7 @@ export class Modal {
             cleanup();
         } else {
             this.modal.classList.add('hidden');
-            setTimeout(cleanup, 400);
+            setTimeout(cleanup, 200);
         }
     }
 
