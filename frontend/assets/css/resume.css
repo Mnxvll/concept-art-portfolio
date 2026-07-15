@@ -1,6 +1,5 @@
-/* Resume Modal Typography & Layout */
+/* Resume Modal - two-column layout (experience left, skills right) */
 
-/* Container for the resume */
 .resume-container {
     display: flex;
     flex-direction: column;
@@ -12,7 +11,8 @@
     padding-right: 1rem;
 }
 
-/* Header section (Name, Title, Download) */
+/* Header: name, title, and download button */
+
 .resume-header {
     display: flex;
     justify-content: space-between;
@@ -40,7 +40,6 @@
     font-weight: bold;
 }
 
-/* Download Button */
 .resume-download-btn {
     display: inline-flex;
     align-items: center;
@@ -70,14 +69,16 @@
     fill: currentColor;
 }
 
-/* Two-column grid layout */
+/* Body grid: main content 2fr, sidebar 1fr */
+
 .resume-body {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
 }
 
-/* Section styling */
+/* Sections */
+
 .resume-section {
     margin-bottom: 2.5rem;
 }
@@ -98,6 +99,7 @@
 }
 
 /* Experience / Education items */
+
 .resume-item {
     margin-bottom: 1.5rem;
 }
@@ -139,7 +141,8 @@
     margin: 0;
 }
 
-/* Skills lists */
+/* Skill lists */
+
 .resume-list {
     list-style: none;
     padding: 0;
@@ -155,13 +158,14 @@
 }
 
 .resume-list li::before {
-    content: "•";
+    content: "\2022";
     color: var(--accent-color);
     margin-right: 0.8rem;
     font-size: 1.2rem;
 }
 
-/* Responsive */
+/* Mobile: single column, stacked header */
+
 @media (max-width: 768px) {
     .resume-header {
         flex-direction: column;
@@ -171,7 +175,6 @@
 
     .resume-body {
         grid-template-columns: 1fr;
-        /* Stack columns on mobile */
         gap: 2rem;
     }
 

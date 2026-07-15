@@ -1,3 +1,5 @@
+/* Artwork Detail Modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -29,6 +31,7 @@
     -webkit-backdrop-filter: blur(5px);
 }
 
+/* Content card with bouncy entrance, smooth exit */
 .modal__content {
     position: relative;
     width: 95vw;
@@ -46,11 +49,11 @@
 .modal.hidden .modal__content {
     transform: translateY(20px) scale(0.96);
     opacity: 0;
-    /* Smooth exit, no bounce, faster */
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* Close button */
+
 .modal__close {
     position: absolute;
     top: 1.5rem;
@@ -79,7 +82,8 @@
     height: 20px;
 }
 
-/* Share button */
+/* Share button - expands to show "Copied!" text on success */
+
 .modal__share {
     position: absolute;
     top: 5.5rem;
@@ -130,6 +134,8 @@
     transition: opacity 0.1s ease;
 }
 
+/* Image pane (left side on desktop, top on mobile) */
+
 .modal__image-pane {
     position: relative;
     flex: 8;
@@ -150,6 +156,8 @@
     -webkit-user-select: none;
     -webkit-user-drag: none;
 }
+
+/* Text pane (right side on desktop, bottom on mobile) */
 
 .modal__text-pane {
     flex: 2;
@@ -194,7 +202,8 @@
     font-style: italic;
 }
 
-/* Navigation Arrows */
+/* Project navigation arrows (centered at the bottom of the image pane) */
+
 .modal__arrow {
     position: absolute;
     bottom: 1.2rem;
@@ -236,7 +245,8 @@
     left: calc(50% + 10px);
 }
 
-/* Responsive adjustments for mobile */
+/* Mobile: stack image on top, text below */
+
 @media (max-width: 900px) {
     .modal__content {
         flex-direction: column;
@@ -329,7 +339,8 @@
     }
 }
 
-/* Fullscreen Image View */
+/* Fullscreen image view (opened by clicking the modal image) */
+
 .fullscreen {
     position: fixed;
     top: 0;

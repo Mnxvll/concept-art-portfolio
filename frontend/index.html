@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,9 @@
     <title>Concept Art Portfolio</title>
     <link rel="stylesheet" href="./assets/css/global.css">
     <link rel="stylesheet" href="./assets/css/header.css">
-    <!-- Slim Select and Flatpickr are loaded lazily on admin login -->
+    <!-- Third-party CSS (SlimSelect, Flatpickr) is loaded lazily on admin login -->
 
-    <!-- Custom Styles -->
+    <!-- App Styles -->
     <link rel="stylesheet" href="./assets/css/gallery.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/resume.css">
@@ -19,7 +19,7 @@
 
 <body>
     <div class="page-wrapper">
-        <!-- Main Header -->
+        <!-- Header -->
         <header class="header" id="main-header">
         <div class="header__brand">
             <h1 id="config-name" class="header__name">David Ponguta</h1>
@@ -42,7 +42,7 @@
 
     <!-- Back to top button wrapper for CSS sticky logic -->
     <div class="back-to-top-wrapper">
-        <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">
+        <button id="back-to-top" class="back-to-top" aria-label="Back to top">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round">
                 <path d="M18 15l-6-6-6 6" />
@@ -52,7 +52,7 @@
 
     </div> <!-- End page-wrapper -->
 
-    <!-- Main Footer -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer__left">
             <p id="config-copyright">© 2026 David Ponguta. All rights reserved.</p>
@@ -69,14 +69,14 @@
     <div id="artwork-modal" class="modal hidden">
         <div class="modal__overlay" id="modal-overlay"></div>
         <div class="modal__content">
-            <button id="modal-close" class="modal__close" aria-label="Cerrar">
+            <button id="modal-close" class="modal__close" aria-label="Close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <button id="modal-share" class="modal__share" aria-label="Compartir">
+            <button id="modal-share" class="modal__share" aria-label="Share">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <circle cx="18" cy="5" r="3"></circle>
@@ -88,14 +88,14 @@
                 <span id="modal-share-text" class="modal__share-text hidden">Copied!</span>
             </button>
             <div class="modal__image-pane">
-                <button id="modal-prev" class="modal__arrow modal__arrow--left hidden" aria-label="Anterior">
+                <button id="modal-prev" class="modal__arrow modal__arrow--left hidden" aria-label="Previous">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
                 </button>
                 <img id="modal-image" src="" alt="Artwork">
-                <button id="modal-next" class="modal__arrow modal__arrow--right hidden" aria-label="Siguiente">
+                <button id="modal-next" class="modal__arrow modal__arrow--right hidden" aria-label="Next">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
@@ -124,26 +124,26 @@
         </div>
     </div>
 
-    <!-- Fullscreen Image View -->
+    <!-- Fullscreen Image Overlay -->
     <div id="fullscreen-view" class="fullscreen hidden">
 
         <img id="fullscreen-image" class="fullscreen__image" src="" alt="Fullscreen Artwork">
     </div>
 
-    <!-- Resume Modal Skeleton -->
+    <!-- Resume Modal -->
     <div id="resume-modal" class="modal hidden">
         <div class="modal__overlay" id="resume-overlay"></div>
         <div class="modal__content"
             style="max-width: 800px; padding: 2rem; flex-direction: column; align-items: stretch;">
 
-            <button id="resume-close" class="modal__close" aria-label="Cerrar">
+            <button id="resume-close" class="modal__close" aria-label="Close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
             </button>
-            <!-- Header (Fixed) -->
+            <!-- Resume Header -->
             <div class="resume-header">
                 <div class="resume-header__info">
                     <h3 id="config-resume-name">David Ponguta</h3>
@@ -151,13 +151,13 @@
                 </div>
             </div>
 
-            <!-- Resume Container (Scroll Area) -->
+            <!-- Resume Content (scrollable) -->
             <div id="resume-content" class="resume-container">
 
-                <!-- Body (Grid) -->
+                <!-- Two-column grid: main + sidebar -->
                 <div class="resume-body">
 
-                    <!-- Main Column (Left) -->
+                    <!-- Main column -->
                     <div class="resume-main">
                         <div class="resume-section">
                             <h4 class="resume-section__title">Summary</h4>
@@ -204,7 +204,7 @@
                         </div>
                     </div>
 
-                    <!-- Sidebar Column (Right) -->
+                    <!-- Sidebar column -->
                     <div class="resume-sidebar">
                         <div class="resume-section">
                             <h4 class="resume-section__title">Software</h4>
@@ -239,7 +239,7 @@
 
                 </div>
 
-                <!-- Footer / Actions -->
+                <!-- Download action -->
                 <div class="resume-footer"
                     style="display: flex; justify-content: flex-end; margin-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 1.5rem;">
                     <a href="#" class="resume-download-btn" aria-label="Download Resume PDF">
@@ -254,11 +254,11 @@
         </div>
     </div>
 
-    <!-- Login Modal (Admin) -->
+    <!-- Admin Login Modal -->
     <div id="login-modal" class="modal hidden">
         <div class="modal__overlay" id="login-overlay"></div>
         <div class="login-content">
-            <button id="login-close" class="modal__close" aria-label="Cerrar">
+            <button id="login-close" class="modal__close" aria-label="Close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -277,7 +277,7 @@
         </div>
     </div>
 
-    <!-- Confirm Delete Modal (Admin) -->
+    <!-- Delete Confirmation Modal -->
     <div id="confirm-modal" class="modal hidden">
         <div class="modal__overlay" id="confirm-overlay"></div>
         <div class="modal__content login-content" style="padding-bottom: 2.5rem;">
@@ -296,12 +296,11 @@
     </div>
 
 
-
-    <!-- Add Artwork Modal (Admin) -->
+    <!-- Add Artwork Modal -->
     <div id="add-artwork-modal" class="modal hidden">
         <div class="modal__overlay" id="add-artwork-overlay"></div>
         <div class="add-artwork-content">
-            <button id="add-artwork-close" class="modal__close" aria-label="Cerrar">
+            <button id="add-artwork-close" class="modal__close" aria-label="Close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -309,7 +308,7 @@
                 </svg>
             </button>
 
-            <!-- Left: Image upload & preview -->
+            <!-- Image upload pane -->
             <div class="add-artwork__image-pane" id="add-artwork-dropzone">
                 <input type="file" id="add-artwork-file" accept="image/*" hidden>
                 <img id="add-artwork-preview" class="add-artwork__preview hidden" src="" alt="Preview">
@@ -325,7 +324,7 @@
                 </div>
             </div>
 
-            <!-- Right: Form fields -->
+            <!-- Form pane -->
             <div class="add-artwork__form-pane">
                 <h3 class="login-title" style="text-align:left; margin-bottom:0.25rem;">New Artwork</h3>
                 <p class="login-subtitle" style="margin-bottom:1.75rem; text-align:left;">Add to portfolio</p>

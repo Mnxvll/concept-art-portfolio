@@ -1,4 +1,4 @@
-/* ─── Add Artwork Modal ─────────────────────────────────────── */
+/* Add Artwork Modal */
 
 .add-artwork-content {
     position: relative;
@@ -13,7 +13,7 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
 }
 
-/* ─── Left: Image pane ──────────────────────────────────────── */
+/* Left pane: image upload with drag-and-drop */
 
 .add-artwork__image-pane {
     flex: 1;
@@ -51,6 +51,8 @@
     display: none;
 }
 
+/* Placeholder shown when no image is selected */
+
 .add-artwork__placeholder {
     display: flex;
     flex-direction: column;
@@ -83,7 +85,7 @@
     display: none;
 }
 
-/* ─── Right: Form pane ──────────────────────────────────────── */
+/* Right pane: form fields */
 
 .add-artwork__form-pane {
     flex: 1;
@@ -106,7 +108,7 @@
     min-height: 120px;
 }
 
-/* ─── Field styles ──────────────────────────────────────────── */
+/* Field-specific overrides */
 
 .add-form__textarea {
     resize: none;
@@ -129,6 +131,7 @@
     color: #ffffff;
 }
 
+/* Hide the native calendar picker icon (flatpickr handles it) */
 #add-artwork-date::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;

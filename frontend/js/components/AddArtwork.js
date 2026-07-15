@@ -1,6 +1,8 @@
+// Add artwork modal with image upload (drag-and-drop or file picker)
 export class AddArtwork {
     /**
-     * @param {Function} onAdd - Callback(artwork) called when a new artwork is submitted
+     * @param {HTMLElement} modalElement - The modal's root DOM element
+     * @param {Function} onAdd - Callback invoked with the new artwork object on submit
      */
     constructor(modalElement, onAdd) {
         this.onAdd = onAdd;
@@ -28,6 +30,7 @@ export class AddArtwork {
     }
 
     initEvents() {
+        // Initialize third-party widgets once admin assets are loaded
         document.addEventListener('adminModeActivated', () => {
             if (typeof SlimSelect !== 'undefined' && !this.slimSelect) {
                 this.slimSelect = new SlimSelect({
@@ -64,27 +67,21 @@ export class AddArtwork {
             this.submit();
         });
 
-        // Blur category select after selecting so hover state clears
         this.categorySelect.addEventListener('change', () => {
             this.categorySelect.blur();
         });
 
-        // Flatpickr manages opening the calendar on click — no manual showPicker() needed
+        // -- Image upload --
 
-        // ── Image upload 
-
-        // Click on image pane opens file picker
         this.dropzone.addEventListener('click', () => {
             this.fileInput.click();
         });
 
-        // File selected via picker
         this.fileInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) this.loadPreview(file);
         });
 
-        // Drag and drop
         this.dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             this.dropzone.classList.add('drag-over');
@@ -107,11 +104,9 @@ export class AddArtwork {
         });
     }
 
-    /**
-     * @param {File} file
-     */
+    // Show a preview of the selected image using an Object URL
     loadPreview(file) {
-        // Revoke previous object URL to avoid memory leaks
+        // Revoke the previous URL to avoid memory leaks
         if (this._objectUrl) {
             URL.revokeObjectURL(this._objectUrl);
         }
@@ -137,10 +132,8 @@ export class AddArtwork {
 
     reset() {
         this.form.reset();
-        // Reset Slim Select and Flatpickr to blank state
         if (this.slimSelect) this.slimSelect.setSelected('');
         if (this.flatpickr) this.flatpickr.clear();
-        // Clear image preview
         this.preview.src = '';
         this.preview.classList.add('hidden');
         this.placeholder.classList.remove('hidden');
@@ -150,16 +143,12 @@ export class AddArtwork {
         }
     }
 
-    /**
-     * Generates a URL-safe slug from a title string
-     * @param {string} title
-     * @returns {string}
-     */
+    // Generate a URL-safe slug from a title (strips accents, special chars, etc.)
     generateSlug(title) {
         return title
             .toLowerCase()
             .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '') // strip accents
+            .replace(/[\u0300-\u036f]/g, '')
             .replace(/[^a-z0-9\s-]/g, '')
             .trim()
             .replace(/\s+/g, '-');
@@ -173,6 +162,7 @@ export class AddArtwork {
         const artwork_date = this.dateInput.value;
         const description = this.descriptionInput.value.trim();
 
+        // Validate required fields and highlight missing ones briefly
         if (!title || !category || !image_url || !artwork_date || !description) {
             if (!image_url) {
                 this.dropzone.classList.add('drag-over');
@@ -206,7 +196,7 @@ export class AddArtwork {
             createdAt: new Date().toISOString(),
         };
 
-        // Visual feedback on button
+        // Brief success animation on the submit button
         const btn = this.form.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
         btn.textContent = 'Added!';
@@ -216,8 +206,8 @@ export class AddArtwork {
             btn.textContent = originalText;
             btn.classList.remove('success');
 
-            // Detach objectUrl before closing so reset() doesn't revoke it —
-            // the collage still needs it to render the image.
+            // Detach the objectUrl before closing so reset() doesn't revoke it;
+            // the collage still needs it to render the new card's image
             this._objectUrl = null;
 
             this.close();

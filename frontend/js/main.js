@@ -1,3 +1,4 @@
+// Entry point - initializes all components and handles page-level routing
 import { artworks } from './services/mockData.js';
 import { Collage } from './components/Collage.js';
 import { Modal } from './components/Modal.js';
@@ -6,7 +7,8 @@ import { AddArtwork } from './components/AddArtwork.js';
 import { config } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize config values in DOM
+
+    // Inject config values (name, role, email, etc.) into the DOM
     const initConfig = () => {
         const setEl = (id, text) => {
             const el = document.getElementById(id);
@@ -16,19 +18,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const el = document.getElementById(id);
             if (el) el.setAttribute(attr, val);
         };
-        
+
         setEl('config-name', config.name);
         setEl('config-role', config.role);
         setEl('config-resume-name', config.name);
         setEl('config-resume-role', config.role);
         setEl('config-login-subtitle', config.name);
         setEl('config-copyright', `© ${config.year} ${config.name}. All rights reserved.`);
-        
+
         setAttr('config-contact', 'href', `mailto:${config.email}`);
         setAttr('config-footer-contact', 'href', `mailto:${config.email}`);
         setEl('config-footer-contact', `Drop me a line at ${config.email}`);
         document.title = `${config.role} Portfolio - ${config.name}`;
-        
+
+        // Populate category <select> dropdowns from config
         const categories = config.categories || [];
         const popSelect = (id) => {
             const sel = document.getElementById(id);
@@ -47,21 +50,24 @@ document.addEventListener('DOMContentLoaded', () => {
         popSelect('modal-category-select');
     };
     initConfig();
+
+    // Prevent browser from restoring scroll position on reload
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
-    // Shared sort comparator: most recent artwork first (#1)
     const byDateDesc = (a, b) => new Date(b.artwork_date) - new Date(a.artwork_date);
 
-    // Helper to read the current artwork slug from the URL (#4)
-    const getUrlSlug = () => new URLSearchParams(window.location.search).get('obra');
+    // Read the artwork slug from the URL query string (?artwork=slug)
+    const getUrlSlug = () => new URLSearchParams(window.location.search).get('artwork');
 
+    // Core DOM references
     const collageContainer = document.getElementById('collage-container');
     const artworkModalEl = document.getElementById('artwork-modal');
     const loginModalEl = document.getElementById('login-modal');
     const addArtworkModalEl = document.getElementById('add-artwork-modal');
 
+    // Initialize components
     const modal = new Modal(artworkModalEl, artworks);
     const admin = new Admin(loginModalEl);
     const addArtworkModal = new AddArtwork(addArtworkModalEl, (newArtwork) => {
@@ -70,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         collage.render();
     });
 
-    // Sort artworks from most recent to oldest before the initial render
+    // Sort artworks newest-first before initial render
     artworks.sort(byDateDesc);
 
     const collage = new Collage(collageContainer, artworks, (artwork) => {
@@ -79,21 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     collage.render();
 
+    // -- Resume Modal --
 
-
-
-    // --- Resume Modal Logic ---
     const resumeBtn = document.getElementById('nav-resume');
     const resumeModal = document.getElementById('resume-modal');
     const resumeClose = document.getElementById('resume-close');
     const resumeOverlay = document.getElementById('resume-overlay');
-
     const resumeContent = document.getElementById('resume-content');
 
     const openResume = (pushHistory = true) => {
         resumeContent.scrollTop = 0;
         resumeModal.classList.remove('hidden');
-        document.body.classList.add('modal-open'); // Prevent scrolling (#2)
+        document.body.classList.add('modal-open');
         if (pushHistory) {
             window.history.pushState({ resume: true }, '', window.location.pathname + '#resume');
         }
@@ -101,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeResume = (pushHistory = true) => {
         resumeModal.classList.add('hidden');
-        document.body.classList.remove('modal-open'); // (#2)
+        document.body.classList.remove('modal-open');
         if (pushHistory) {
             window.history.pushState(null, '', window.location.pathname);
         }
@@ -117,19 +120,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Centralized Routing Logic ---
+    // -- URL Routing --
+    // Syncs modal state (artwork / resume) with the browser URL on load and popstate
+
     const handleRoute = () => {
         const slug = getUrlSlug();
         const isResume = window.location.hash === '#resume';
 
-        // Handle Resume Modal State
         if (isResume) {
             openResume(false);
         } else if (!resumeModal.classList.contains('hidden')) {
             closeResume(false);
         }
 
-        // Handle Artwork Modal State
         if (slug && !isResume) {
             const targetArt = artworks.find(a => a.slug === slug);
             if (targetArt) {
@@ -138,19 +141,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 modal.close(false);
             }
         } else {
-            // Only attempt to close if it might be open to avoid unnecessary DOM operations
-            // Modal internally checks if it's already hidden, but we just call close
             modal.close(false);
         }
     };
 
-    // Initialize route on load
     handleRoute();
-
-    // Handle browser Back/Forward buttons
     window.addEventListener('popstate', handleRoute);
 
-    // --- Back to top button logic ---
+    // -- Back-to-top button --
+
     const backToTopBtn = document.getElementById('back-to-top');
 
     window.addEventListener('scroll', () => {
@@ -161,8 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // CSS now natively handles pinning the button above the footer using position: sticky.
-
     backToTopBtn.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({
@@ -171,16 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Force trigger during momentum scroll on mobile
+    // On mobile, touchstart fires even during momentum scroll; prevent default
+    // so the OS doesn't swallow the tap meant to scroll to top
     backToTopBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Prevents the OS from swallowing the tap to stop scroll
+        e.preventDefault();
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     }, { passive: false });
 
-    // --- Admin Delete Logic (Mock) ---
+    // -- Delete artwork confirmation (mock) --
+
     const confirmModal = document.getElementById('confirm-modal');
     const confirmOverlay = document.getElementById('confirm-overlay');
     const confirmCancel = document.getElementById('confirm-cancel');
@@ -197,24 +196,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeConfirmModal = () => {
         confirmModal.classList.add('hidden');
         artworkToDelete = null;
+        if (document.activeElement) document.activeElement.blur();
     };
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !confirmModal.classList.contains('hidden')) {
+            closeConfirmModal();
+        }
+    });
 
     if (confirmOverlay) confirmOverlay.addEventListener('click', closeConfirmModal);
     if (confirmCancel) confirmCancel.addEventListener('click', closeConfirmModal);
 
     if (confirmDelete) confirmDelete.addEventListener('click', () => {
         if (artworkToDelete) {
-            // Mock deletion: remove from artworks array and re-render
             const index = artworks.findIndex(a => a.id === artworkToDelete.id);
             if (index > -1) {
                 artworks.splice(index, 1);
-                collage.render(); // Re-render the grid without the deleted item
+                collage.render();
             }
             closeConfirmModal();
         }
     });
 
-    // --- Add Artwork button ---
+    // -- Add Artwork button (admin only, visibility handled via CSS) --
+
     const addArtworkBtn = document.getElementById('add-artwork-btn');
     if (addArtworkBtn) {
         addArtworkBtn.addEventListener('click', () => {

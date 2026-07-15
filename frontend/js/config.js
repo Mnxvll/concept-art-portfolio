@@ -1,3 +1,4 @@
+// Portfolio configuration - edit these values to personalize the site
 export const config = {
     name: "David Ponguta",
     role: "Concept Artist",
@@ -13,6 +14,6 @@ export const config = {
         "Matte Painting",
         "UI/UX Design"
     ],
-    // control + shift + "adminShortcut" opens the admin modal
+    // Keyboard shortcut: Ctrl + Shift + this key opens the admin modal
     adminShortcut: "ñ"
 };

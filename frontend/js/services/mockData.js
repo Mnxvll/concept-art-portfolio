@@ -1,3 +1,4 @@
+// Placeholder artwork data - will be replaced by API calls to the backend
 export const artworks = [
     {
         id: "mock-3",

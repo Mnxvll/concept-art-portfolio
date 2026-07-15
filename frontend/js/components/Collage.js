@@ -1,8 +1,9 @@
+// Masonry-style collage grid with lazy loading and entrance animations
 export class Collage {
     /**
-     * @param {HTMLElement} container - The DOM element where the collage will be injected
-     * @param {Array} artworks - Array of artworks (ARTWORK model)
-     * @param {Function} onArtworkClick - Callback executed when an artwork is clicked
+     * @param {HTMLElement} container - DOM element where the collage is rendered
+     * @param {Array} artworks - Array of artwork objects
+     * @param {Function} onArtworkClick - Callback when an artwork card is clicked
      */
     constructor(container, artworks, onArtworkClick) {
         this.container = container;
@@ -11,7 +12,7 @@ export class Collage {
         this.currentColumns = 0;
         this.resizeTimer = null;
 
-        // Use ResizeObserver for better performance and container-relative measurements
+        // Re-render when the container width changes (handles window resize)
         this.resizeObserver = new ResizeObserver((entries) => {
             for (let entry of entries) {
                 if (this.resizeTimer) clearTimeout(this.resizeTimer);
@@ -23,7 +24,7 @@ export class Collage {
         
         this.resizeObserver.observe(this.container);
 
-        // Event delegation for collage items and delete buttons
+        // Event delegation: handle clicks on artwork cards and delete buttons
         this.container.addEventListener('click', (e) => {
             const deleteBtn = e.target.closest('.collage__delete-btn');
             if (deleteBtn) {
@@ -50,14 +51,14 @@ export class Collage {
         });
     }
 
+    // Public method that forces a full re-render
     render() {
-        // Initial render forces column check
         this.currentColumns = 0;
         this.checkAndRender();
     }
 
+    // Only re-renders if the column count changed (avoids unnecessary DOM work)
     checkAndRender(width = this.container.clientWidth) {
-        // Determine columns based on container width
         let cols = 3;
         if (width <= 768) {
             cols = 1;
@@ -65,7 +66,6 @@ export class Collage {
             cols = 2;
         }
 
-        // Only re-render if the number of columns changed
         if (this.currentColumns !== cols) {
             this.currentColumns = cols;
             this.forceRender();
@@ -83,7 +83,7 @@ export class Collage {
             this.container.appendChild(col);
         }
 
-        // Setup observer for entrance animations
+        // Staggered entrance animation: each card delays slightly after the previous
         let appearDelay = 0;
         let appearTimeout = null;
         const appearObserver = new IntersectionObserver((entries) => {
@@ -94,6 +94,7 @@ export class Collage {
                     }, appearDelay);
                     appearDelay += 100;
 
+                    // Reset delay after a pause so new batches start fresh
                     clearTimeout(appearTimeout);
                     appearTimeout = setTimeout(() => {
                         appearDelay = 0;
@@ -104,13 +105,15 @@ export class Collage {
             });
         }, { rootMargin: '50px 0px', threshold: 0.05 });
 
-        // Setup observer for mobile "hover" effect (active state on scroll)
+        // On touch devices (no hover), simulate hover by activating the card
+        // closest to the vertical center of the viewport
         const hasHover = window.matchMedia('(hover: hover)').matches;
         let observer = null;
 
         if (!hasHover) {
             const observerOptions = {
                 root: null,
+                // Narrow 1px band at the center of the viewport
                 rootMargin: '-49.5% 0px -49.5% 0px',
                 threshold: 0
             };
@@ -125,18 +128,18 @@ export class Collage {
                 });
             }, observerOptions);
 
+            // Edge case: when the user scrolls to the very bottom, the center-band
+            // observer can't reach the last item. Detect this and force-activate it.
             let wasAtBottom = false;
             let scrollTicking = false;
 
             window.addEventListener('scroll', () => {
                 if (!scrollTicking) {
                     window.requestAnimationFrame(() => {
-                        // Use documentElement.scrollHeight for fast, thrash-free height calculation
                         const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 150;
 
                         if (isAtBottom) {
                             if (!wasAtBottom) {
-                                // Only query DOM exactly ONCE when crossing boundary
                                 const items = document.querySelectorAll('.collage__item');
                                 if (items.length > 0) {
                                     const lastItem = items[items.length - 1];
@@ -149,7 +152,7 @@ export class Collage {
                             }
                         } else {
                             if (wasAtBottom) {
-                                // Only query DOM exactly ONCE when leaving boundary
+                                // Leaving the bottom: let the center-band observer take over again
                                 const items = document.querySelectorAll('.collage__item');
                                 if (items.length > 0) {
                                     const lastItem = items[items.length - 1];
@@ -172,6 +175,7 @@ export class Collage {
             }, { passive: true });
         }
 
+        // Build each artwork card and distribute into columns (round-robin)
         this.artworks.forEach((art, index) => {
             const item = document.createElement('div');
             item.className = 'collage__item';
@@ -185,7 +189,6 @@ export class Collage {
 
             // Fade-in when the image finishes loading
             img.addEventListener('load', () => img.classList.add('loaded'));
-            // Handle already-cached images (load event won't fire)
             if (img.complete) img.classList.add('loaded');
 
             const overlay = document.createElement('div');
@@ -195,7 +198,7 @@ export class Collage {
             title.className = 'collage__title';
             title.textContent = art.title;
 
-            // Delete button for Admin Mode
+            // Delete button (visible only in admin mode via CSS)
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'collage__delete-btn';
             deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
@@ -205,7 +208,6 @@ export class Collage {
             item.appendChild(overlay);
             item.appendChild(deleteBtn);
 
-            // Distribute items into columns sequentially
             const colIndex = index % this.currentColumns;
             columns[colIndex].appendChild(item);
 

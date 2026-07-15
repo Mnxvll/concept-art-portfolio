@@ -1,3 +1,4 @@
+/* Admin CSS - aggregates all admin-specific stylesheets */
 @import url('./admin/core.css');
 @import url('./admin/modal.css');
 @import url('./admin/slimselect.css');

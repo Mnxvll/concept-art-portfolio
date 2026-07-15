@@ -1,6 +1,7 @@
-/* ─── Slim Select Theme ─────────────────────────────────────────────────────── */
+/* SlimSelect Theme - dark overrides for the category dropdown */
 
-/* ─── Universal Dropdown Menu ─── */
+/* Dropdown menu (shared by both Add Artwork and Edit modals) */
+
 body.admin-mode .ss-content {
     background: #111111 !important;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -38,7 +39,8 @@ body.admin-mode .ss-arrow path {
     stroke: rgba(255, 255, 255, 0.5);
 }
 
-/* ─── Add Artwork Modal (Looks like .login-input) ─── */
+/* Add Artwork modal: styled to match .login-input */
+
 body.admin-mode .login-form .ss-main {
     width: 100%;
     padding: 14px 1rem;
@@ -72,7 +74,7 @@ body.admin-mode .login-form .ss-main .ss-values .ss-placeholder {
     width: auto;
 }
 
-/* Absolute position arrow to ensure perfect centering of text without arrow shifting it */
+/* Absolute arrow keeps text perfectly centered */
 body.admin-mode .login-form .ss-main .ss-arrow {
     position: absolute;
     right: 1rem;
@@ -90,7 +92,8 @@ body.admin-mode .login-form .ss-main.force-hover {
     outline: none !important;
 }
 
-/* ─── Edit Modal (Looks like dashed contenteditable) ─── */
+/* Edit modal: styled to match dashed contenteditable fields */
+
 body.admin-mode .modal__text-pane .ss-main {
     align-self: stretch;
     width: auto;

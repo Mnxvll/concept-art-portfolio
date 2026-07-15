@@ -1,8 +1,10 @@
+// Artwork detail modal with project-based navigation, sharing, and admin editing
 import { config } from '../config.js';
 
 export class Modal {
     /**
-     * @param {Array} artworks - Full database of artworks to enable project grouping
+     * @param {HTMLElement} modalElement - The modal's root DOM element
+     * @param {Array} artworks - Full artwork list (used to group by project)
      */
     constructor(modalElement, artworks = []) {
         this.modal = modalElement;
@@ -12,19 +14,16 @@ export class Modal {
 
         if (!this.modal) return;
 
-        // Base modal elements
         this.overlay = this.modal.querySelector('#modal-overlay');
         this.closeBtn = this.modal.querySelector('#modal-close');
 
-        // Share elements
         this.shareBtn = this.modal.querySelector('#modal-share');
         this.shareText = this.modal.querySelector('#modal-share-text');
 
-        // Navigation arrows
+        // Navigation arrows (visible when artwork belongs to a multi-piece project)
         this.prevBtn = this.modal.querySelector('#modal-prev');
         this.nextBtn = this.modal.querySelector('#modal-next');
 
-        // Data elements
         this.image = this.modal.querySelector('#modal-image');
         this.title = this.modal.querySelector('#modal-title');
         this.category = this.modal.querySelector('#modal-category');
@@ -34,7 +33,6 @@ export class Modal {
         this.datePicker = this.modal.querySelector('#modal-date-picker');
         this.saveBtn = this.modal.querySelector('#modal-save-btn');
 
-        // Prevent selecting future dates
         if (this.datePicker) {
             const today = new Date().toISOString().split('T')[0];
             this.datePicker.setAttribute('max', today);
@@ -42,11 +40,9 @@ export class Modal {
 
         this.textPane = this.modal.querySelector('.modal__text-pane');
 
-        // Fullscreen elements
+        // Fullscreen image view (opens when clicking the main image)
         this.fullscreenView = document.getElementById('fullscreen-view');
         this.fullscreenImage = document.getElementById('fullscreen-image');
-
-
 
         this.initEvents();
     }
@@ -55,6 +51,7 @@ export class Modal {
         this.closeBtn.addEventListener('click', () => this.close());
         this.overlay.addEventListener('click', () => this.close());
 
+        // Share: uses native Web Share API on mobile, clipboard fallback on desktop
         this.shareBtn.addEventListener('click', () => {
             const currentArt = this.currentProjectGroup[this.currentIndex];
 
@@ -106,6 +103,7 @@ export class Modal {
             if (e.target === this.fullscreenView) this.closeFullscreen();
         });
 
+        // Keyboard navigation: Escape closes, arrows navigate project group
         document.addEventListener('keydown', (e) => {
             if (this.modal.classList.contains('hidden')) return;
 
@@ -120,6 +118,7 @@ export class Modal {
             }
 
             if (!this.modal.classList.contains('hidden') && this.fullscreenView.classList.contains('hidden')) {
+                // Don't capture arrows when the user is editing text fields
                 if (document.activeElement.isContentEditable || document.activeElement.tagName === 'INPUT') return;
 
                 if (e.key === 'ArrowLeft') this.prev();
@@ -127,6 +126,7 @@ export class Modal {
             }
         });
 
+        // Enforce character limits on contenteditable title and description
         const enforceLimit = (element, maxLimit) => {
             element.addEventListener('keydown', (e) => {
                 const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab'];
@@ -136,6 +136,7 @@ export class Modal {
                     e.preventDefault();
                 }
             });
+            // Truncate pasted text to remaining character budget
             element.addEventListener('paste', (e) => {
                 e.preventDefault();
                 const text = (e.clipboardData || window.clipboardData).getData('text');
@@ -161,7 +162,7 @@ export class Modal {
         enforceLimit(this.title, 100);
         enforceLimit(this.description, 2000);
 
-        // Admin mode listeners
+        // Admin mode: make title/description editable and initialize third-party widgets
         document.addEventListener('adminModeActivated', () => {
             this.title.contentEditable = true;
             this.description.contentEditable = true;
@@ -177,7 +178,7 @@ export class Modal {
                     }
                 });
 
-                // If the modal is already open and showing an artwork, set its category
+                // Sync the select to the currently displayed artwork
                 if (this.currentProjectGroup.length > 0 && this.currentProjectGroup[this.currentIndex]) {
                     this.slimSelect.setSelected(this.currentProjectGroup[this.currentIndex].category);
                 }
@@ -200,10 +201,10 @@ export class Modal {
             this.description.contentEditable = false;
         });
 
+        // Save edits: validate, update the artwork object, and close
         const saveEdits = () => {
             if (!this.currentProjectGroup || this.currentProjectGroup.length === 0) return;
 
-            // Validate required fields
             let hasError = false;
             const titleText = this.title.innerText.trim();
             const descText = this.description.innerText.trim();
@@ -211,6 +212,7 @@ export class Modal {
             this.title.style.outline = '';
             this.description.style.outline = '';
 
+            // Highlight empty required fields
             if (!titleText) {
                 this.title.style.outline = '2px solid rgba(255, 71, 87, 0.9)';
                 hasError = true;
@@ -230,7 +232,6 @@ export class Modal {
             currentArt.artwork_date = this.datePicker.value;
             this.date.textContent = 'Created on ' + currentArt.artwork_date;
 
-            // Visual feedback
             const originalText = this.saveBtn.textContent;
             this.saveBtn.textContent = 'Saved!';
             this.saveBtn.classList.add('success');
@@ -238,20 +239,17 @@ export class Modal {
             setTimeout(() => {
                 this.saveBtn.textContent = originalText;
                 this.saveBtn.classList.remove('success');
-                this.close(); // Close the modal
+                this.close();
             }, 600);
         };
 
         this.saveBtn.addEventListener('click', saveEdits);
 
-        // Flatpickr handles calendar opening on click
-
-        // Blur select after choosing an option so hover state clears immediately
         this.categorySelect.addEventListener('change', () => {
             this.categorySelect.blur();
         });
 
-        // Close Flatpickr calendar when scrolling the text pane to prevent it from floating
+        // Close the flatpickr calendar when the text pane scrolls to prevent it from floating
         if (this.textPane) {
             this.textPane.addEventListener('scroll', () => {
                 if (this.flatpickr && this.flatpickr.isOpen) {
@@ -262,8 +260,10 @@ export class Modal {
     }
 
     /**
-     * @param {Object} artwork 
-     * @param {boolean} pushHistory - Whether to push a new state to browser history
+     * Opens the modal for a given artwork.
+     * Groups all artworks from the same project for arrow navigation.
+     * @param {Object} artwork
+     * @param {boolean} pushHistory - Whether to push a new browser history entry
      */
     open(artwork, pushHistory = true) {
         if (artwork.project) {
@@ -285,9 +285,7 @@ export class Modal {
         this.modal.classList.remove('hidden');
     }
 
-    /**
-     * @param {boolean} pushHistory 
-     */
+    // Populate the modal's DOM elements with the current artwork data
     updateUI(pushHistory = true) {
         const currentArt = this.currentProjectGroup[this.currentIndex];
 
@@ -300,7 +298,7 @@ export class Modal {
             const existingCustom = this.categorySelect.querySelector('option[data-custom]');
             if (existingCustom) existingCustom.remove();
 
-            // If the artwork's category is not in the list, add it temporarily
+            // If the artwork's category doesn't match any option, add it temporarily
             const exists = Array.from(this.categorySelect.options).some(opt => opt.value === currentArt.category);
             if (!exists && currentArt.category) {
                 const customOpt = document.createElement('option');
@@ -326,6 +324,7 @@ export class Modal {
         this.title.contentEditable = isAdmin;
         this.description.contentEditable = isAdmin;
 
+        // Show navigation arrows only for multi-piece projects
         if (this.currentProjectGroup.length > 1) {
             this.prevBtn.classList.remove('hidden');
             this.nextBtn.classList.remove('hidden');
@@ -335,7 +334,7 @@ export class Modal {
         }
 
         if (pushHistory) {
-            const newUrl = window.location.pathname + '?obra=' + currentArt.slug;
+            const newUrl = window.location.pathname + '?artwork=' + currentArt.slug;
             window.history.pushState({ slug: currentArt.slug }, '', newUrl);
         }
 
@@ -359,6 +358,8 @@ export class Modal {
     close(pushHistory = true) {
         if (this.slimSelect) this.slimSelect.close();
         if (this.flatpickr) this.flatpickr.close();
+
+        // Skip transition when closing programmatically (e.g. from URL routing)
         if (!pushHistory) {
             this.modal.style.transition = 'none';
             const content = this.modal.querySelector('.modal__content');
@@ -377,6 +378,7 @@ export class Modal {
             this.currentProjectGroup = [];
             this.currentIndex = 0;
 
+            // Restore CSS transitions after a programmatic close
             if (!pushHistory) {
                 requestAnimationFrame(() => {
                     this.modal.style.transition = '';

@@ -1,10 +1,12 @@
+/* Design Tokens */
 :root {
     --bg-color: #0d0d0d;
     --text-color: #f2f2f2;
     --accent-color: #ffffff9f;
     --gap-size: 10px;
-    /* space between images */
 }
+
+/* Custom Font: Dobra (Bold, Medium, Light) */
 
 @font-face {
     font-family: 'Dobra';
@@ -26,6 +28,8 @@
     font-weight: 300;
     font-style: normal;
 }
+
+/* Reset */
 
 * {
     margin: 0;
@@ -51,7 +55,11 @@ body {
     padding: 1rem;
 }
 
-/* Back to top button - CSS sticky logic */
+/* Back-to-top button
+   Uses CSS sticky positioning inside a zero-width wrapper
+   that spans the full height of the page. This pins the button
+   to the bottom-right without affecting layout or blocking clicks. */
+
 .page-wrapper {
     position: relative;
     min-height: 100vh;
@@ -62,16 +70,14 @@ body {
     top: 0;
     bottom: 0;
     right: 0;
-    width: 0; /* Zero width so it doesn't block interactions */
+    width: 0;
     pointer-events: none;
     z-index: 100;
 }
 
 .back-to-top {
     position: sticky;
-    /* Pin to bottom of viewport: 100vh - buttonHeight(70px) - bottomMargin(2rem/32px) */
     top: calc(100vh - 70px - 2rem);
-    /* Shift left because wrapper has 0 width */
     transform: translateX(calc(-100% - 2rem));
     
     width: 70px;
@@ -89,12 +95,10 @@ body {
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    /* Added translateY for the initial hidden state */
     margin-top: 20px; 
     transition: opacity 0.4s ease, margin-top 0.4s ease, background-color 0.3s ease;
 }
 
-/* State when user scrolls down */
 .back-to-top.visible {
     opacity: 1;
     pointer-events: auto;
@@ -107,13 +111,11 @@ body {
     }
 }
 
-/* Icon inside button */
 .back-to-top svg {
     width: 28px;
     height: 28px;
 }
 
-/* Mobile responsive back-to-top */
 @media (max-width: 768px) {
     .back-to-top {
         width: 50px;
@@ -128,7 +130,8 @@ body {
     }
 }
 
-/* Custom Minimalist Scrollbar */
+/* Minimalist scrollbar */
+
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -146,6 +149,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.4);
 }
+
+/* Lock body scroll when any modal is open */
 
 body.modal-open {
     overscroll-behavior: none;

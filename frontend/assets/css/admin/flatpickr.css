@@ -1,6 +1,7 @@
-/* ─── Flatpickr Theme – Black & Gray ────────────────────────────────────────── */
+/* Flatpickr Theme - dark calendar to match the portfolio aesthetic */
 
 /* Calendar container */
+
 .flatpickr-calendar {
     background: rgba(18, 18, 18, 0.95);
     backdrop-filter: blur(16px);
@@ -30,7 +31,8 @@
     }
 }
 
-/* Arrows (top/bottom) */
+/* Tooltip arrows */
+
 .flatpickr-calendar.arrowTop::before {
     border-bottom-color: rgba(255, 255, 255, 0.08);
 }
@@ -47,7 +49,7 @@
     border-top-color: rgba(18, 18, 18, 0.95);
 }
 
-/* ─── Month header ──────────────────────────────────────────── */
+/* Month header */
 
 .flatpickr-months {
     padding: 4px 0 0 0;
@@ -77,7 +79,6 @@
     border: none;
     outline: none;
     margin-right: 8px;
-    /* Spacing improvement */
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months option {
@@ -122,7 +123,7 @@
     border-top-color: rgba(255, 255, 255, 0.4);
 }
 
-/* ─── Nav arrows ────────────────────────────────────────────── */
+/* Navigation arrows (prev/next month) */
 
 .flatpickr-prev-month,
 .flatpickr-next-month {
@@ -149,7 +150,7 @@
     fill: #ffffff;
 }
 
-/* ─── Weekday labels ────────────────────────────────────────── */
+/* Weekday labels */
 
 .flatpickr-weekdays {
     background: transparent;
@@ -166,7 +167,7 @@ span.flatpickr-weekday {
     text-transform: uppercase;
 }
 
-/* ─── Day cells ─────────────────────────────────────────────── */
+/* Day cells */
 
 .flatpickr-days {
     border: none;
@@ -216,7 +217,7 @@ span.flatpickr-weekday {
     color: rgba(255, 255, 255, 0.3);
 }
 
-/* ─── Today ─────────────────────────────────────────────────── */
+/* Today */
 
 .flatpickr-day.today {
     border-color: rgba(255, 255, 255, 0.25);
@@ -229,7 +230,7 @@ span.flatpickr-weekday {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* ─── Selected ──────────────────────────────────────────────── */
+/* Selected day */
 
 .flatpickr-day.selected,
 .flatpickr-day.selected:hover,
@@ -241,7 +242,7 @@ span.flatpickr-weekday {
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
 }
 
-/* ─── Disabled ──────────────────────────────────────────────── */
+/* Disabled (future dates) */
 
 .flatpickr-day.disabled,
 .flatpickr-day.flatpickr-disabled {
@@ -256,7 +257,7 @@ span.flatpickr-weekday {
     transform: none;
 }
 
-/* ─── Inner container border reset ──────────────────────────── */
+/* Reset inner container border */
 
 .flatpickr-innerContainer {
     border-bottom: none;
@@ -266,7 +267,7 @@ span.flatpickr-weekday {
     width: 100%;
 }
 
-/* ─── Prevent typing in year input ──────────────────────────── */
+/* Disable manual year typing (navigation only via arrows) */
 
 .flatpickr-current-month input.cur-year {
     pointer-events: none;

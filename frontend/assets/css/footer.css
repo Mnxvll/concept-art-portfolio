@@ -1,3 +1,5 @@
+/* Footer - split layout: copyright left, CTA right */
+
 .footer {
     display: flex;
     justify-content: space-between;
@@ -65,7 +67,7 @@
     }
 }
 
-/* Mobile responsive */
+/* Mobile: stack columns in reverse order (CTA on top) */
 @media (max-width: 768px) {
     .footer {
         flex-direction: column-reverse;

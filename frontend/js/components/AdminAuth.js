@@ -1,3 +1,4 @@
+// Admin authentication modal with lazy-loaded assets for the admin panel
 import { config } from '../config.js';
 
 export class Admin {
@@ -16,7 +17,7 @@ export class Admin {
     }
 
     initEventListeners() {
-        // Keyboard shortcut: Ctrl + Shift + config.adminShortcut
+        // Toggle admin modal with Ctrl + Shift + configured key
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === config.adminShortcut.toLowerCase()) {
                 e.preventDefault();
@@ -27,7 +28,6 @@ export class Admin {
             }
         });
 
-        // Close modal
         if (this.closeBtn) {
             this.closeBtn.addEventListener('click', () => this.closeModal());
         }
@@ -35,7 +35,6 @@ export class Admin {
             this.overlay.addEventListener('click', () => this.closeModal());
         }
 
-        // Handle Form Submission (Mock Authentication)
         this.form.addEventListener('submit', (e) => {
             e.preventDefault();
             this.authenticate();
@@ -63,9 +62,7 @@ export class Admin {
     logout() {
         console.log("Admin logged out.");
         document.body.classList.remove('admin-mode');
-        // Let other components know admin mode is off
         document.dispatchEvent(new CustomEvent('adminModeDeactivated'));
-        // Reload page to reset state
         window.location.reload();
     }
 
@@ -73,19 +70,19 @@ export class Admin {
         this.modal.classList.add('hidden');
     }
 
+    // Mock authentication: any non-empty password activates admin mode
     authenticate() {
         const passInput = this.modal.querySelector('#admin-pass');
         const password = passInput ? passInput.value : '';
 
-        // Mock authentication: any input activates admin mode
         if (password.length > 0) {
             console.log("Admin authenticated (Mock). Enabling Admin Mode...");
             document.body.classList.add('admin-mode');
             this.closeModal();
-            passInput.value = ''; // clear password
+            passInput.value = '';
 
+            // Load third-party admin assets, then notify other components
             this.loadAdminAssets().then(() => {
-                // Dispatch event to let other components know admin mode is on
                 document.dispatchEvent(new CustomEvent('adminModeActivated'));
             }).catch(err => {
                 console.error("Failed to load admin assets:", err);
@@ -93,6 +90,8 @@ export class Admin {
         }
     }
 
+    // Lazily injects SlimSelect and Flatpickr CSS/JS into the page.
+    // Inserts vendor CSS before the app stylesheets so custom overrides take priority.
     loadAdminAssets() {
         const assets = [
             { type: 'css', url: 'https://cdn.jsdelivr.net/npm/slim-select@2/dist/slimselect.css' },
@@ -110,6 +109,7 @@ export class Admin {
                     link.href = asset.url;
                     link.onload = resolve;
                     link.onerror = reject;
+                    // Insert before app styles so our overrides win
                     const customStyles = document.querySelector('link[href="./assets/css/gallery.css"]');
                     if (customStyles) {
                         document.head.insertBefore(link, customStyles);
