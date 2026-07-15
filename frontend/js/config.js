@@ -12,5 +12,7 @@ export const config = {
         "Keyframe Illustration",
         "Matte Painting",
         "UI/UX Design"
-    ]
+    ],
+    // control + shift + "adminShortcut" opens the admin modal
+    adminShortcut: "ñ"
 };

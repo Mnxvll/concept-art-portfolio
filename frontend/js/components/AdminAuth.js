@@ -1,3 +1,5 @@
+import { config } from '../config.js';
+
 export class Admin {
     constructor() {
         this.modal = document.getElementById('login-modal');
@@ -11,11 +13,14 @@ export class Admin {
     }
 
     initEventListeners() {
-        // Keyboard shortcut: Ctrl + Shift + A
+        // Keyboard shortcut: Ctrl + Shift + config.adminShortcut
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 's') {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === config.adminShortcut.toLowerCase()) {
                 e.preventDefault();
                 this.toggleModal();
+            }
+            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
+                this.closeModal();
             }
         });
 
