@@ -3,8 +3,50 @@ import { Collage } from './components/Collage.js';
 import { Modal } from './components/Modal.js';
 import { Admin } from './components/AdminAuth.js';
 import { AddArtwork } from './components/AddArtwork.js';
+import { config } from './config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize config values in DOM
+    const initConfig = () => {
+        const setEl = (id, text) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = text;
+        };
+        const setAttr = (id, attr, val) => {
+            const el = document.getElementById(id);
+            if (el) el.setAttribute(attr, val);
+        };
+        
+        setEl('config-name', config.name);
+        setEl('config-role', config.role);
+        setEl('config-resume-name', config.name);
+        setEl('config-resume-role', config.role);
+        setEl('config-login-subtitle', config.name);
+        setEl('config-copyright', `© ${config.year} ${config.name}. All rights reserved.`);
+        
+        setAttr('config-contact', 'href', `mailto:${config.email}`);
+        setAttr('config-footer-contact', 'href', `mailto:${config.email}`);
+        setEl('config-footer-contact', `Drop me a line at ${config.email}`);
+        document.title = `${config.role} Portfolio - ${config.name}`;
+        
+        const categories = config.categories || [];
+        const popSelect = (id) => {
+            const sel = document.getElementById(id);
+            if (!sel) return;
+            const firstOpt = sel.options[0];
+            sel.innerHTML = '';
+            sel.appendChild(firstOpt);
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                sel.appendChild(opt);
+            });
+        };
+        popSelect('add-artwork-category');
+        popSelect('modal-category-select');
+    };
+    initConfig();
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }

@@ -1,3 +1,5 @@
+import { config } from '../config.js';
+
 export class Modal {
     /**
      * @param {Array} artworks - Full database of artworks to enable project grouping
@@ -59,7 +61,7 @@ export class Modal {
 
                 navigator.share({
                     title: currentArt.title,
-                    text: `Check out ${currentArt.title} on David Ponguta's portfolio`,
+                    text: `Check out ${currentArt.title} on ${config.name}'s portfolio`,
                     url: window.location.href
                 }).then(() => {
                     this.shareBtn.classList.remove('success');
@@ -135,7 +137,16 @@ export class Modal {
                 const text = (e.clipboardData || window.clipboardData).getData('text');
                 const remaining = maxLimit - element.innerText.length;
                 if (remaining > 0) {
-                    document.execCommand('insertText', false, text.substring(0, remaining));
+                    const selection = window.getSelection();
+                    if (!selection.rangeCount) return;
+                    const range = selection.getRangeAt(0);
+                    range.deleteContents();
+                    const textNode = document.createTextNode(text.substring(0, remaining));
+                    range.insertNode(textNode);
+                    range.setStartAfter(textNode);
+                    range.setEndAfter(textNode);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
                 }
             });
             element.addEventListener('input', () => {
@@ -353,8 +364,6 @@ export class Modal {
             if (content) content.style.transition = 'none';
         }
 
-        this.modal.classList.add('hidden');
-
         if (pushHistory) {
             window.history.pushState(null, '', window.location.pathname);
         }
@@ -369,17 +378,18 @@ export class Modal {
             this.currentIndex = 0;
 
             if (!pushHistory) {
-                setTimeout(() => {
+                requestAnimationFrame(() => {
                     this.modal.style.transition = '';
                     const content = this.modal.querySelector('.modal__content');
                     if (content) content.style.transition = '';
-                }, 50);
+                });
             }
         };
 
         if (!pushHistory) {
             cleanup();
         } else {
+            this.modal.classList.add('hidden');
             setTimeout(cleanup, 400);
         }
     }

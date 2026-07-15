@@ -176,10 +176,11 @@ export class AddArtwork {
                 setTimeout(() => this.dropzone.classList.remove('drag-over'), 800);
             }
             if (!category) {
-                const ssMain = this.form.querySelector('.ss-main');
-                if (ssMain) {
-                    ssMain.classList.add('force-hover');
-                    setTimeout(() => ssMain.classList.remove('force-hover'), 800);
+                const wrapper = document.getElementById('add-artwork-category-wrapper');
+                if (wrapper) {
+                    const target = wrapper.querySelector('.ss-main') || wrapper;
+                    target.classList.add('force-hover');
+                    setTimeout(() => target.classList.remove('force-hover'), 800);
                 }
             }
             if (!artwork_date) {

@@ -21,8 +21,8 @@
     <!-- Main Header -->
     <header class="header" id="main-header">
         <div class="header__brand">
-            <h1 class="header__name">David Ponguta</h1>
-            <h2 class="header__title">Concept Artist</h2>
+            <h1 id="config-name" class="header__name">David Ponguta</h1>
+            <h2 id="config-role" class="header__title">Concept Artist</h2>
         </div>
         <nav class="header__nav">
             <button id="add-artwork-btn" class="add-artwork-btn header__link" title="Add New Artwork">
@@ -32,7 +32,7 @@
                 <span>Add Artwork</span>
             </button>
             <button id="nav-resume" class="header__link">Resume</button>
-            <a href="mailto:ponguart@gmail.com" class="header__link">Contact</a>
+            <a id="config-contact" href="mailto:ponguart@gmail.com" class="header__link">Contact</a>
         </nav>
     </header>
 
@@ -42,13 +42,13 @@
     <!-- Main Footer -->
     <footer class="footer">
         <div class="footer__left">
-            <p>© 2026 David Ponguta. All rights reserved.</p>
+            <p id="config-copyright">© 2026 David Ponguta. All rights reserved.</p>
             <p class="footer__dev">Developed by <a href="https://github.com/Mnxvll" target="_blank"
                     class="footer__dev-link">Mnxvll</a></p>
         </div>
         <div class="footer__right">
             <p class="footer__cta">Open for new opportunities</p>
-            <a href="mailto:ponguart@gmail.com" class="footer__link">Drop me a line at ponguart@gmail.com</a>
+            <a id="config-footer-contact" href="mailto:ponguart@gmail.com" class="footer__link">Drop me a line at ponguart@gmail.com</a>
         </div>
     </footer>
 
@@ -141,8 +141,8 @@
             <!-- Header (Fixed) -->
             <div class="resume-header">
                 <div class="resume-header__info">
-                    <h3>David Ponguta</h3>
-                    <p>Concept Artist</p>
+                    <h3 id="config-resume-name">David Ponguta</h3>
+                    <p id="config-resume-role">Concept Artist</p>
                 </div>
             </div>
 
@@ -261,7 +261,7 @@
                 </svg>
             </button>
             <h3 class="login-title">Restricted Access</h3>
-            <p class="login-subtitle">David Ponguta</p>
+            <p id="config-login-subtitle" class="login-subtitle">David Ponguta</p>
             <form id="login-form" class="login-form">
                 <input type="email" id="admin-email" class="login-input" placeholder="Admin Email" required
                     autocomplete="email" maxlength="100">
@@ -329,18 +329,20 @@
                         maxlength="150" autocomplete="off">
                     <input type="text" id="add-artwork-project" class="login-input"
                         placeholder="Project name (optional)" maxlength="100" autocomplete="off">
-                    <select id="add-artwork-category" class="login-input add-form__select">
-                        <option value="" disabled selected>Category</option>
-                        <option value="Character Design">Character Design</option>
-                        <option value="Environment Design">Environment Design</option>
-                        <option value="Prop Design">Prop Design</option>
-                        <option value="Creature Design">Creature Design</option>
-                        <option value="Vehicle Design">Vehicle Design</option>
-                        <option value="Keyframe Illustration">Keyframe Illustration</option>
-                        <option value="Matte Painting">Matte Painting</option>
-                        <option value="UI/UX Design">UI/UX Design</option>
-                    </select>
-                    <input type="date" id="add-artwork-date" class="login-input" placeholder="Date" required>
+                    <div id="add-artwork-category-wrapper">
+                        <select id="add-artwork-category" class="login-input add-form__select">
+                            <option value="" disabled selected>Category</option>
+                            <option value="Character Design">Character Design</option>
+                            <option value="Environment Design">Environment Design</option>
+                            <option value="Prop Design">Prop Design</option>
+                            <option value="Creature Design">Creature Design</option>
+                            <option value="Vehicle Design">Vehicle Design</option>
+                            <option value="Keyframe Illustration">Keyframe Illustration</option>
+                            <option value="Matte Painting">Matte Painting</option>
+                            <option value="UI/UX Design">UI/UX Design</option>
+                        </select>
+                    </div>
+                    <input type="date" id="add-artwork-date" class="login-input" placeholder="Date">
                     <textarea id="add-artwork-description" class="login-input add-form__textarea"
                         placeholder="Description" required maxlength="2000"></textarea>
                     <button type="submit" class="login-btn">Add Artwork</button>
