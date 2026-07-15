@@ -17,6 +17,32 @@ export class Collage {
                 this.checkAndRender();
             }, 150);
         });
+
+        // Event delegation for collage items and delete buttons
+        this.container.addEventListener('click', (e) => {
+            const deleteBtn = e.target.closest('.collage__delete-btn');
+            if (deleteBtn) {
+                e.stopPropagation();
+                const item = deleteBtn.closest('.collage__item');
+                if (item) {
+                    const artId = item.dataset.id;
+                    const art = this.artworks.find(a => a.id === artId);
+                    if (art) {
+                        document.dispatchEvent(new CustomEvent('requestDeleteArtwork', { detail: art }));
+                    }
+                }
+                return;
+            }
+
+            const item = e.target.closest('.collage__item');
+            if (item) {
+                const artId = item.dataset.id;
+                const art = this.artworks.find(a => a.id === artId);
+                if (art && this.onArtworkClick) {
+                    this.onArtworkClick(art);
+                }
+            }
+        });
     }
 
     render() {
@@ -129,6 +155,7 @@ export class Collage {
         this.artworks.forEach((art, index) => {
             const item = document.createElement('div');
             item.className = 'collage__item';
+            item.dataset.id = art.id;
 
             const img = document.createElement('img');
             img.src = art.image_url;
@@ -141,12 +168,6 @@ export class Collage {
             // Handle already-cached images (load event won't fire)
             if (img.complete) img.classList.add('loaded');
 
-            item.addEventListener('click', () => {
-                if (this.onArtworkClick) {
-                    this.onArtworkClick(art);
-                }
-            });
-
             const overlay = document.createElement('div');
             overlay.className = 'collage__overlay';
 
@@ -158,10 +179,6 @@ export class Collage {
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'collage__delete-btn';
             deleteBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>';
-            deleteBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Don't trigger the modal
-                document.dispatchEvent(new CustomEvent('requestDeleteArtwork', { detail: art }));
-            });
 
             overlay.appendChild(title);
             item.appendChild(img);
