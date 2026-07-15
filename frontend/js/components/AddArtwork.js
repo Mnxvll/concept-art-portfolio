@@ -121,6 +121,8 @@ export class AddArtwork {
     }
 
     close() {
+        if (this.slimSelect) this.slimSelect.close();
+        if (this.flatpickr) this.flatpickr.close();
         this.modal.classList.add('hidden');
         document.documentElement.style.overflow = '';
         this.reset();

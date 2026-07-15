@@ -148,6 +148,9 @@ export class Modal {
                     document.execCommand('insertText', false, text.substring(0, remaining));
                 }
             });
+            element.addEventListener('input', () => {
+                element.style.outline = '';
+            });
         };
 
         enforceLimit(this.title, 100);
@@ -335,6 +338,8 @@ export class Modal {
     }
 
     close(pushHistory = true) {
+        if (this.slimSelect) this.slimSelect.close();
+        if (this.flatpickr) this.flatpickr.close();
         if (!pushHistory) {
             this.modal.style.transition = 'none';
             const content = this.modal.querySelector('.modal__content');
