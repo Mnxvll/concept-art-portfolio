@@ -21,7 +21,7 @@ export class Collage {
 
     render() {
         // Initial render forces column check
-        this.currentColumns = 0; 
+        this.currentColumns = 0;
         this.checkAndRender();
     }
 
@@ -167,7 +167,7 @@ export class Collage {
             item.appendChild(img);
             item.appendChild(overlay);
             item.appendChild(deleteBtn);
-            
+
             // Distribute items into columns sequentially
             const colIndex = index % this.currentColumns;
             columns[colIndex].appendChild(item);

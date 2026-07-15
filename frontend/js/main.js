@@ -9,17 +9,23 @@ document.addEventListener('DOMContentLoaded', () => {
         history.scrollRestoration = 'manual';
     }
 
+    // Shared sort comparator: most recent artwork first (#1)
+    const byDateDesc = (a, b) => new Date(b.artwork_date) - new Date(a.artwork_date);
+
+    // Helper to read the current artwork slug from the URL (#4)
+    const getUrlSlug = () => new URLSearchParams(window.location.search).get('obra');
+
     const collageContainer = document.getElementById('collage-container');
     const modal = new Modal(artworks);
     const admin = new Admin();
     const addArtworkModal = new AddArtwork((newArtwork) => {
         artworks.push(newArtwork);
-        artworks.sort((a, b) => new Date(b.artwork_date) - new Date(a.artwork_date));
+        artworks.sort(byDateDesc);
         collage.render();
     });
 
-    // Sort artworks from most recent to oldest
-    artworks.sort((a, b) => new Date(b.artwork_date) - new Date(a.artwork_date));
+    // Sort artworks from most recent to oldest before the initial render
+    artworks.sort(byDateDesc);
 
     const collage = new Collage(collageContainer, artworks, (artwork) => {
         modal.open(artwork);
@@ -28,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     collage.render();
 
     // Check URL for deep linking
-    const urlParams = new URLSearchParams(window.location.search);
-    const obraSlug = urlParams.get('obra');
+    const obraSlug = getUrlSlug();
     if (obraSlug) {
         const targetArt = artworks.find(a => a.slug === obraSlug);
         if (targetArt) {
@@ -48,11 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const resumeContent = document.getElementById('resume-content');
 
     const openResume = (pushHistory = true) => {
-        if (resumeContent) {
-            resumeContent.scrollTop = 0;
-        }
+        resumeContent.scrollTop = 0;
         resumeModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.documentElement.style.overflow = 'hidden'; // Prevent scrolling (#2)
         if (pushHistory) {
             window.history.pushState({ resume: true }, '', window.location.pathname + '#resume');
         }
@@ -60,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeResume = (pushHistory = true) => {
         resumeModal.classList.add('hidden');
-        document.body.style.overflow = '';
+        document.documentElement.style.overflow = ''; // (#2)
         if (pushHistory) {
             window.history.pushState(null, '', window.location.pathname);
         }
@@ -82,8 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle browser Back/Forward buttons (popstate)
     window.addEventListener('popstate', () => {
-        const params = new URLSearchParams(window.location.search);
-        const slug = params.get('obra');
+        const slug = getUrlSlug(); // (#4)
 
         if (window.location.hash === '#resume') {
             openResume(false);
