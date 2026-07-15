@@ -11,12 +11,17 @@ export class Collage {
         this.currentColumns = 0;
         this.resizeTimer = null;
 
-        window.addEventListener('resize', () => {
-            if (this.resizeTimer) clearTimeout(this.resizeTimer);
-            this.resizeTimer = setTimeout(() => {
-                this.checkAndRender();
-            }, 150);
+        // Use ResizeObserver for better performance and container-relative measurements
+        this.resizeObserver = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+                if (this.resizeTimer) clearTimeout(this.resizeTimer);
+                this.resizeTimer = setTimeout(() => {
+                    this.checkAndRender(entry.contentRect.width);
+                }, 100);
+            }
         });
+        
+        this.resizeObserver.observe(this.container);
 
         // Event delegation for collage items and delete buttons
         this.container.addEventListener('click', (e) => {
@@ -51,12 +56,12 @@ export class Collage {
         this.checkAndRender();
     }
 
-    checkAndRender() {
-        // Determine columns based on window width
+    checkAndRender(width = this.container.clientWidth) {
+        // Determine columns based on container width
         let cols = 3;
-        if (window.innerWidth <= 768) {
+        if (width <= 768) {
             cols = 1;
-        } else if (window.innerWidth <= 1200) {
+        } else if (width <= 1200) {
             cols = 2;
         }
 
@@ -121,33 +126,48 @@ export class Collage {
             }, observerOptions);
 
             let wasAtBottom = false;
+            let scrollTicking = false;
+
             window.addEventListener('scroll', () => {
-                const items = document.querySelectorAll('.collage__item');
-                if (items.length === 0) return;
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(() => {
+                        // Use documentElement.scrollHeight for fast, thrash-free height calculation
+                        const isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 150;
 
-                const lastItem = items[items.length - 1];
-                const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150;
-
-                if (isAtBottom) {
-                    if (!wasAtBottom) {
-                        items.forEach(item => {
-                            if (item !== lastItem) item.classList.remove('is-active');
-                        });
-                        lastItem.classList.add('is-active');
-                        wasAtBottom = true;
-                    }
-                } else {
-                    if (wasAtBottom) {
-                        lastItem.classList.remove('is-active');
-                        const center = window.innerHeight / 2;
-                        items.forEach(item => {
-                            const r = item.getBoundingClientRect();
-                            if (r.top <= center && r.bottom >= center) {
-                                item.classList.add('is-active');
+                        if (isAtBottom) {
+                            if (!wasAtBottom) {
+                                // Only query DOM exactly ONCE when crossing boundary
+                                const items = document.querySelectorAll('.collage__item');
+                                if (items.length > 0) {
+                                    const lastItem = items[items.length - 1];
+                                    items.forEach(item => {
+                                        if (item !== lastItem) item.classList.remove('is-active');
+                                    });
+                                    lastItem.classList.add('is-active');
+                                }
+                                wasAtBottom = true;
                             }
-                        });
-                        wasAtBottom = false;
-                    }
+                        } else {
+                            if (wasAtBottom) {
+                                // Only query DOM exactly ONCE when leaving boundary
+                                const items = document.querySelectorAll('.collage__item');
+                                if (items.length > 0) {
+                                    const lastItem = items[items.length - 1];
+                                    lastItem.classList.remove('is-active');
+                                    const center = window.innerHeight / 2;
+                                    items.forEach(item => {
+                                        const r = item.getBoundingClientRect();
+                                        if (r.top <= center && r.bottom >= center) {
+                                            item.classList.add('is-active');
+                                        }
+                                    });
+                                }
+                                wasAtBottom = false;
+                            }
+                        }
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
                 }
             }, { passive: true });
         }
